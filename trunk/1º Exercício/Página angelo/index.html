@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Página da Disciplina
+		</title>
+		<script  type="text/javascript" src="Javascript/javascript.js" charset="utf-8">
+		</script>
+		<link rel="stylesheet" type="text/css" href="CSS/stylesheet.css">
+		<style>
+			p{
+				padding: 10;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="cabecalho" >
+			<table border = 0px width=100%>
+				<tr>
+					<td align=center>
+						<img  src="IMGS/cc.jpg" align=center/>						
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="corpo">
+			<table border=0px align=center width=100%>
+				<tr>
+					<th colspan = 2>
+					<div id="Menu">
+						<ul id="navlist" >
+						<h1>							
+							<li><a href="http://portal.ufes.br/">Portal UFES</a></li>
+							<li><a href="http://www.cca.ufes.br/">CCA</a></li>
+							<li><a href="http://www.prograd.ufes.br/calendario_academico/calendario_academico.htm">Calendário Acadêmico</a></li>
+							<li><a href="http://www.computacao.alegre.ufes.br/fale-conosco">Fale Conosco</a></li>							
+						</h1>
+						</ul>
+					</div>
+					</th>					
+				</tr>
+				<tr>					
+						<td id="Submenu">						
+							<script type="text/javascript">
+								horaparada();
+							</script>							
+							<h4> SubMenu </h4>
+							<ul>
+								<b>
+									<li><a href="http://www.computacao.alegre.ufes.br/dire%C3%A7%C3%A3o"> Direção </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/"> Graduação </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/corpo-docente"> Corpo Docente </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/"> Documentos </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/"> Notícias </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/"> Editais </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/"> Galeria </a></li>
+									<li><a href="http://www.computacao.alegre.ufes.br/fale-conosco"> Fale Conosco </a></li>
+									
+								</b>
+							</ul>
+							
+						</td>
+						
+						<td>
+					
+						<div id="titulodoassunto">
+							<h2> Cabeçalho do conteúdo </h2>
+						</div>
+						<div id="conteudo">
+							<img src="IMGS/imagem.jpg" onclick="javascript:src='IMGS/gato.jpg'" width=200px height=400px align=left />
+							<p> Texto do conteúdo </p>							
+							<form>
+							<h1>
+								Nome:
+								<input type="text" id="Nome"></input>
+								<br>
+								Sobrenome:
+								<input type="text" id="Sobrenome"></input>
+								<br>								
+								<button type="button" onclick="javascript:apresentarNome()">
+									Enviar!
+								</button>					
+								</input>
+ 							</h1>
+							</form>
+							<br>
+							<h1>Calculadora de fatorial</h1>
+							<p>Digite o número o qual deseja calcular o fatorial:</p>
+							<input type="text" id="calculadora"> </input>
+							<button type="button" onclick="javascript:exibeFatorial()" >
+								Calcular!
+							</button>
+							<br>												
+						</div>
+					</td>
+				</tr>				
+			</table>
+		</div>
+		<div id="rodape">
+			<h5>
+				<p>Universidade Federal do Espírito Santo <p>
+				<p>Observações: <i> Este site foi feito na mãozada.</i></p>	
+			</h5>
+		</div>
+	</body>
+</html>

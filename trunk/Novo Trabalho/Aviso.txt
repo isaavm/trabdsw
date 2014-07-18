@@ -1,0 +1,8 @@
+Para acessar a loginpage(a página inicial do sistema)
+deverá descomentá-la na index e comentar as restantes.
+
+Pois ela precisa do cabeçalho de CSS e javascript
+que só a index tem e fornecer para as páginas que são
+carregadas ao se descomentar posteriormente.
+
+Dhiarllon, preciso das imagens do submenu.

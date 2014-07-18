@@ -1,0 +1,91 @@
+* {
+	margin: 0 0 0 0;
+}
+
+#cabeca{
+	background: red;
+	width: 100%;
+	height: 200px;	
+}
+
+#insidecabeca{
+	margin-left: 600px;
+	background-image:url(../Imgs/Capa%20Site..png);
+	height: 200px;
+	width: 700px;	
+}
+
+#corpo{
+	background: yellow;
+	width: 100%;
+	height: 200px;
+}
+
+#rodape{	
+	background: blue;
+	width: 100%;
+	height: 100px;
+}
+
+#titulo{
+	background: black;
+	width: 700px;
+	height: 200px;
+}
+
+#menu{
+	background: white;
+	width: 100%;
+	height: 100px;
+}
+
+#lidomenu{
+	display: inline;
+}
+
+#barriga{
+	background: black;
+	width: 700px;
+	height: 100%;
+}
+
+#imagemrodape{
+	background: black;
+	width: 700px;
+	height: 100%;
+}
+
+#login{
+	border-radius: 20px;
+	width: 500px;
+	height: 500px;
+	margin-left: 650px;
+	background: #9CC;
+	
+}
+
+#title{	
+	margin-left: 800px;
+	margin-top: 300px;
+}
+
+#nameperson{
+	color:#FFF;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+#menu img{
+	width:100px; 
+	height: 100px;"	
+}
+
+#conteudo{
+	margin-left: 600px;
+}
+
+#subrodape{
+	background: #000;
+	width: 700px;
+	height:	100px;
+	margin-left: 600px;
+}

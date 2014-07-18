@@ -1,0 +1,17 @@
+//PADRÃO DAS MENSAGENS: <seu_nome> - <pergunta_ou_resposta_ou_observação>
+
+Issac - Cada disciplina deve ter o professor que a criou (???)
+Angelo - Sim. Acho que fica bom colocar quem a criou, que é justamente o professor da disciplina.
+
+Isaac - Quem cria a disciplina é o departamento. O que deve existir é, para cada turma, um vínculo com um professor e uma disciplina.
+vejam como eu estruturei os campos para cada requisito. Não terminei ainda, mas da pra vcs terem uma ideia pro modelo ER.
+
+Angelo - Eu tinha definido que o professor criava as disciplinas, porém essa do departamento é melhor.
+
+
+Angelo - Possíveis dúvidas nas políticas marquei de vermelho noa arquivo de políticas.
+
+
+Angelo - Coloquem aqui os materiais e informações da aula de sexta, da parada que é para entregar.
+
+Isaac = Modificar modelo ER. Incluir campo 'semestre' na tabela 'Turma'.

@@ -1,0 +1,54 @@
+body{
+	margin: 0 0 0 0;
+}
+body *{
+	margin: 0 0 0 0;
+}
+img{
+	padding: 10px;
+}
+#cabecalho{
+	background: black;
+}
+#corpo{
+	background: white;
+}
+#rodape{
+	text-align: center;	
+	background: black;
+}
+#navlist li{
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;				
+}
+#uma{
+	background: green;
+}
+#conteudo{
+	display=inline;
+	list-style-type: none;
+	padding-right: 20px;
+	background: white;
+	height: 500px;
+}
+#titulodoassunto{
+	padding: 10px;
+	background: red;
+}
+
+#Submenu{
+	width:10%;
+	height:100%;
+	background: green;
+}
+
+#menu{
+
+	background: black;
+}
+
+#rodape p{
+	color: white;
+	
+}
