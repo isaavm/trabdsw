@@ -1,0 +1,10 @@
+ISAAC
+fazer o html, css e javascrip da pagina aluno
+
+DHIARLLON
+Converter o texto das fontes nos .cdr em curvas
+Criar os .png sem fundo branco (fundo transparente)
+
+ANGELO
+pagina do professor e login
+

@@ -1,0 +1,33 @@
+body{
+	margin: 0 0 0 0;
+}
+body *{
+	margin: 0 0 0 0;
+}
+#cabecalho{
+	background: red;
+}
+#corpo{
+	background: white;
+}
+#rodape{
+	align=center;
+	background: yellow;
+}
+#navlist li{
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;				
+}
+#uma{
+	background: green;
+}
+#conteudo{
+	display=inline;
+	list-style-type: none;
+	padding-right: 20px;
+	background: blue;
+}
+#titulodoassunto{
+	background: red;
+}

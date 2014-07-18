@@ -1,0 +1,128 @@
+O que tem que fazer:
+- Requisitos;
+- Política;
+- Dependências/Relações;(Modelo ER)
+- Layout;(Todas as telas)
+
+
+
+
+Professor e Alunos
+Começo dos Requisitos:
+Visualizar calendário academico
+site departamento
+
+__________________
+- Cadastro alunos e disciplinas;
+- Cadastrar trabalho;
+- Fazer chamada;
+- Postar trabalho;
+- Postar notas;
+- Postar comentários(Avisos);
+_________________________________
+- Visualização faltas e notas;
+- Visualização dos trabalhos;
+- Resposta comentários;
+- Enviar os trabalhos prontos;
+- Recuperar senha
+- 
+
+_________________________________
+
+
+
+
+Começo das Políticas:
+
+______________________________________________________________________________________________
+Tela de cadastro:
+	Tela de cadastro com os campos de 
+- Login,
+- Senha;
+	Ao errar o login,
+
+
+______________________________________________________________________________________________
+
+
+
+- Cadastro de alunos;
+	Tela necessária para o cadastro do aluno;
+Nome,
+Matrícula;
+
+O sistema gerará para o aluno um login igual ao nome e a senha igual a matrícula.
+Somente o professor pode adicionar um aluno.
+
+
+
+- Cadastrar Turmas;
+	Tela necessária para o cadastro de turmas;
+Codigo Disciplina,
+Disciplina,
+Professor;
+
+
+
+- Cadastro de disciplinas;
+	Tela necessária para o cadastro de disciplinas;
+Nome,
+Código,
+Professor;
+
+Somento um professor pode cadastrar uma disciplina;
+Cada disciplina deve ter o professor que a criou;	
+
+
+
+- Cadastrar Professor;
+	Somente o Administrador do sistema poderá cadastrar professor;
+Nome,
+Departamento,
+E-mail;
+
+
+- Cadastar Aluno em Turma;
+	Somento o professor pode adicionar o aluno em um turma;
+
+Matrícula.
+
+_______________________________________________________________________________________________
+Fazer Chamada:
+
+	A página da turma possuirá a opção chamada no qual possuirá um diário em que o professor selecionará o dia,
+exibindo uma lista com todos os alunos cadastrados naquela disclina. O professor irá selecionar os alunos em que estiveram presentes
+na sala de aula e salvará.
+
+O professor pode voltar e editar a chamada naquele dia.
+_______________________________________________________________________________________________
+
+Postar Trabalho;
+	Terá uma opção na página inicial do professor chamada "Trabalhos", exibirá as opções:
+- Visualizar trabalho,
+- Postar Trabalho.
+
+
+
+	Em postar trabalhos, o sistema exibirá uma tela com os campos para preechimento.
+	
+Arquivo do Trabalho,
+Comentário do trabalho,
+Data de envio,
+Professor,
+Data de termino,
+
+
+	Ao chegar na data de termino, o trabalho não será visto pelos 
+
+
+
+
+
+
+
+
+
+
+
+
