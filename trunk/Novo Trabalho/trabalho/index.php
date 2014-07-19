@@ -1,73 +1,27 @@
 <?php
-ob_start();
-session_start();
-
-if (isset($_COOKIE["registro"])) {
-	if (empty($_SESSION['user'])) {
-		$codreg = base64_decode($_COOKIE['registro']);
-		include "FuncoesdeBanco.php";
-		$bd = new FuncoesdeBanco();
-		$se = $bd -> getById($codreg / 123);
-		if ($se['Codigo'] > -1) {
-			$se['id'] = session_id();
-			$se['ip'] = $_SERVER['REMOTE_ADDR'];
-			$se['hora'] = time();
-			$_SESSION['user'] = $se;
-		} else {
-			setcookie("registro", "", -3600);
-			echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=controlaacesso.php'>";
-		}
-	}
-} elseif (isset($_POST['sendform'])) {
-	$nome = strtolower($_POST['Login']);
-	$pass = $_POST['Senha'];
-	include "FuncoesdeBanco.php";
-	$bd = new FuncoesdeBanco();
-	$se = $bd -> Logar($nome, $pass);
-	if ($se['Codigo'] > -1) {
-		$se['id'] = session_id();
-		$se['ip'] = $_SERVER['REMOTE_ADDR'];
-		$se['hora'] = time();
-		$_SESSION['user'] = $se;
-		setcookie("registro", base64_encode(((int)$_SESSION['user']['Codigo']) * 123));
-	} else {
-		echo "Login ou senha não conferem";
-		echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=loginpage.php'>";
-	}
-}
-
-if (empty($_SESSION['user'])) {
-	header('Location: loginpage.php');
-} else {
-	$us = $_SESSION['user']['Nome'];
-	echo 'Ola ' . $us . '. sua sessao esta aberta!<br />';
-}
-
-//Isaac diz: Parei aqui (tirando o flush na ultima linha)
-
 include "default.php";
 $flag = 0;
 function Validacao($flag) {
-	$ret = FALSE;
-	if (isset($_SESSION)) {
-		$flag = 1;
-	} elseif (isset($_COOKIE['codigo'])) {
+	if (isset($_COOKIE['classe']) && isset($_COOKIE['id'])) {
 		echo "Os campos Classe e ID do COOKIE estão definidos!";
 		$flag = 1;
 	}
-	return $ret;
+	if (isset($_SESSION)) {
+		$flag = 1;
+	}
+	return $flag;
 }
 
 //////// PÁGINA DE LOGIN ////////////
 
-if (!Validacao()) {
+if (!Validacao($flag)) {
 	//include "loginpage.php";
-} else {
+}else{
 	include "controlaacesso.php";
 	$controla = new ControlaAcesso();
-	if ($controla -> ValiadaCookieSession()) {
-
-	} else {
+	if($controla->ValiadaCookieSession()){
+		
+	}else{		
 		include "loginpage.php";
 	}
 }
@@ -77,6 +31,8 @@ include "header.php";
 /////// MENU TIPO DE USUÁRIO ////////
 //include "menuprofessor.php";
 include "menuadmin.php";
+
+include "teste.php";
 //include "menualuno.php";
 /////// CONTEÚDO CENTRAL ////////////
 
@@ -98,5 +54,4 @@ include "menuadmin.php";
 
 /////// RODAPÉ /////////////////////
 //include "bottom.php";
-ob_end_flush();
 ?>

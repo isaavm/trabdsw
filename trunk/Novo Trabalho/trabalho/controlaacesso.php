@@ -16,7 +16,7 @@ class ControlaAcesso {
 	}
 
 	function LoginPage() {
-		$ret = (int)0;
+		$ret = (int) 0;
 		if (!isset($_POST['Login']) && !isset($_POST['Senha'])) {
 
 		} else {
@@ -26,18 +26,18 @@ class ControlaAcesso {
 				if (($_POST['Login'] != "Nome:") && ($_POST['Senha'] != "Senha:")) {
 					include "FuncoesdeBanco.php";
 					$classe = new FuncoesdeBanco();
-					$vetor = $classe -> Logar($_POST['Login'], $_POST['Senha']);
-					if ($vetor['Codigo'] > -1) {
-						$ret = (int)1;
-					}
+					$vetor = $classe->Logar($_POST['Login'],$_POST['Senha']);
+					 if($vetor['Codigo'] > -1){
+					 	$ret = (int) 1;
+					 }
 				}
 			}
 		}
 		return $ret;
 	}
-
-	function RedirecionarLogin() {
-
+	
+	function RedirecionarLogin(){
+		
 	}
 
 }
