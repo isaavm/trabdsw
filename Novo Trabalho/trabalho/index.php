@@ -1,104 +1,68 @@
 <?php
-/*ob_start();
+include "default.php";
+ob_start();
 session_start();
 
-if (isset($_COOKIE["registro"])) {
+$flag = TRUE;
+if (isset($_COOKIE["trabalhodsw"])) {
 	if (empty($_SESSION['user'])) {
 		$codreg = base64_decode($_COOKIE['registro']);
 		include "FuncoesdeBanco.php";
 		$bd = new FuncoesdeBanco();
 		$se = $bd -> getById($codreg / 123);
-		if ($se['Codigo'] > -1) {
+		if ($se['codigo'] > -1) {
 			$se['id'] = session_id();
 			$se['ip'] = $_SERVER['REMOTE_ADDR'];
 			$se['hora'] = time();
 			$_SESSION['user'] = $se;
 		} else {
-			setcookie("registro", "", -3600);
-			echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=controlaacesso.php'>";
+			setcookie("trabalhodsw", "", -3600);
+			echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=loginpage.php'>";
 		}
 	}
-} elseif (isset($_POST['sendform'])) {
-	$nome = strtolower($_POST['Login']);
-	$pass = $_POST['Senha'];
+} elseif (!empty($_POST['login']) && !empty($_POST['senha'])) {
+	$nome = strtolower($_POST['login']);
+	$pass = $_POST['senha'];
 	include "FuncoesdeBanco.php";
 	$bd = new FuncoesdeBanco();
 	$se = $bd -> Logar($nome, $pass);
-	if ($se['Codigo'] > -1) {
+	if ($se['codigo'] > -1) {
 		$se['id'] = session_id();
 		$se['ip'] = $_SERVER['REMOTE_ADDR'];
 		$se['hora'] = time();
 		$_SESSION['user'] = $se;
-		setcookie("registro", base64_encode(((int)$_SESSION['user']['Codigo']) * 123));
+		//setcookie("trabalhodsw", base64_encode(((int)$_SESSION['user']['Codigo']) * 123));
 	} else {
-		echo "Login ou senha não conferem";
-		echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=loginpage.php'>";
+		$flag = FALSE;
+		echo "<script type='text/javascript'> alert('Login ou senha não conferem');</script>";
+		echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=loginpage.php'>";
 	}
 }
 
 if (empty($_SESSION['user'])) {
-	header('Location: loginpage.php');
+	if ($flag) {
+		header('Location: loginpage.php');
+	}
 } else {
-	$us = $_SESSION['user']['Nome'];
+	$us = $_SESSION['user']['nome'];
+	$ta = $_SESSION['user']['classe'];
 	echo 'Ola ' . $us . '. sua sessao esta aberta!<br />';
-}
-
-//Isaac diz: Parei aqui (tirando o flush na ultima linha)
-
-include "default.php";
-$flag = 0;
-function Validacao($flag) {
-	$ret = FALSE;
-	if (isset($_SESSION)) {
-		$flag = 1;
-	} elseif (isset($_COOKIE['codigo'])) {
-		echo "Os campos Classe e ID do COOKIE estão definidos!";
-		$flag = 1;
-	}
-	return $ret;
-}
-
-//////// PÁGINA DE LOGIN ////////////
-
-if (!Validacao()) {
-	//include "loginpage.php";
-} else {
-	include "controlaacesso.php";
-	$controla = new ControlaAcesso();
-	if ($controla -> ValiadaCookieSession()) {
-
+	if ($ta == 3) {//aluno
+		//include "paginaAluno.php";
+		echo "foi aluno!";
+	} elseif ($ta == 2) {//professor
+		//include "paginaProfessor.php";
+		echo "foi profe!";
+	} elseif ($ta == 1) {//chefe dpto
+		//include "paginaChefedpto.php";
+		echo "foi chefe!";
+	} elseif ($ta == 0) {//admin
+		//include "paginaAdministrador.php";
+		echo "foi admin!";
 	} else {
-		include "loginpage.php";
+		echo "Violação de acesso: Página não encontrada para seu nivel de acesso! A polícia federal está a caminho para te prender!";
 	}
 }
 
-//////// HEADER /////////////////////
-include "header.php";
-/////// MENU TIPO DE USUÁRIO ////////
-//include "menuprofessor.php";
-include "menuadmin.php";
-//include "menualuno.php";
-/////// CONTEÚDO CENTRAL ////////////
-
-//include "cadastrardepartamento.php";
-//include "cadastrarprofessor.php";
-//include "homeadmin.php";
-//include "criartrabalho.php";
-//include "cadastraralunoturma.php";
-//include "cadastrarturmas.php";
-//include "cadastraraluno.php";
-//include "cadastrardisciplina.php";
-//include "visualizartrabalho.php";
-//include "detalhesdotrabalho.php";
-//include "homeprofessor.php";
-//include "enviartrabalho.php";
-//include "nomedadisciplina.php";
-//include "visualizartrabalhos.php";
-//include "homealuno.php";
-
-/////// RODAPÉ /////////////////////
-//include "bottom.php";
-ob_end_flush();*/ 
-
-	include  "visualizartrabalho.php";
+ob_end_flush();
 ?>
