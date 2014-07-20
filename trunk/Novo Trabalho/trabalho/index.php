@@ -1,5 +1,5 @@
 <?php
-ob_start();
+/*ob_start();
 session_start();
 
 if (isset($_COOKIE["registro"])) {
@@ -98,5 +98,7 @@ include "menuadmin.php";
 
 /////// RODAPÉ /////////////////////
 //include "bottom.php";
-ob_end_flush();
+ob_end_flush();*/ 
+
+	include  "visualizartrabalho.php";
 ?>

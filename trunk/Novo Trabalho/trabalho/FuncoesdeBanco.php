@@ -72,6 +72,63 @@ class FuncoesdeBanco {
 		mysqli_close($con);
 		return $InfoUser;
 	}
+
+	function CadastrarAluno($nome, $matricula, $email){
+		
+		/* 	Essa função irá cadastra o Aluno com o nome, matricula e e-mail retornado verdadeiro se efeturar o cadastro com sucesso 
+		 ou falso se ocorrer algum erro no cadastro*/
+		 return false;
+	}
+	
+	function CadastrarAlunoTurma($matricula,$turma){
+		/* Essa função irá cadastrar o Aluno em uma turma passando a matricula e a turma do aluno. Retorna verdadeiro se efeturar 
+		 * cadastro com sucesso e falso caso contrário.
+		 */
+		return true;		
+	}
+	
+	function CadastrarDepartamento($codigo,$nome,$chefe_depart,$subchef_depart){
+		
+		/* Essa função irá cadastrar um departamento com o código, nome, chefe de departamento e subchefe de departamento
+		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
+		 */
+	return true;
+	} 
+	
+	function CadastrarDisciplina($codigo,$nome,$prereq,$carga_horaria,$creditos){
+		
+		/* Essa função irá cadastrar uma disciplina com o código, nome, pre requisito, carga horária e créditos
+		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
+		 */
+	return true;
+	} 
+	
+	function CadastrarProfessor($nome,$matricula,$codigo_departamento,$email){
+		
+		/* Essa função irá cadastrar um professor com nome, matricula, código do departamento e o e-mail
+		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
+		 */
+	return true;
+	}
+	
+	function CadastrarTurmas($nome,$codigo,$vagas_ofertadas,$horario,$professor){
+		
+		/* Essa função irá cadastrar uma turma com nome, código, vagas ofertadas, horario, professor
+		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
+		 */
+	return true;
+	}
+	
+	function CriarTrabalho($titulo,$especificacao,$data){
+		
+		/* Essa função irá criar um trabalho com o título, uma area de especificação  e a data de término
+		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
+		 */
+	return true;
+	}
+	
+	
+	
 }
 
 ?>
