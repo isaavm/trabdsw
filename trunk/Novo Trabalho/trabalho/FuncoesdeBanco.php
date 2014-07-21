@@ -1,13 +1,13 @@
 <?php
 
 class FuncoesdeBanco {
-	private $Banco = array("servidor" => "localhost", "usuario" => "root", "senha" => "", "banco" => "trabalhodsw");
+	private $Banco = array("servidor" => "mysql.jeiks.net", "usuario" => "g1dsw", "senha" => "ju76+klba", "banco" => "g1dsw");
 
 	function Logar($User, $Pass) {
 		$InfoUser = array("nome" => "", "classe" => "", "codigo" => -1);
-		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
 		} else {
 			$senha = md5($Pass);
 			$query = "SELECT CodUsuario, NivelAcesso FROM Usuario WHERE Username like '$User' and Password like '$senha' limit 1";
@@ -16,6 +16,8 @@ class FuncoesdeBanco {
 				$resposta = mysqli_fetch_array($resp);
 				$InfoUser["classe"] = $resposta["NivelAcesso"];
 				$InfoUser["codigo"] = $resposta["CodUsuario"];
+				echo $resposta["NivelAcesso"];
+				echo $resposta["CodUsuario"];
 				if ($InfoUser["classe"] == 0) {//administrador
 					$query = "SELECT Nome FROM Administrador WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
@@ -45,7 +47,7 @@ class FuncoesdeBanco {
 
 	function getById($cod) {
 		$InfoUser = array('nome' => "", 'classe' => "", 'codigo' => "-1");
-		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
 		if (mysqli_connect_errno()) {
 			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
 		} else {
@@ -81,75 +83,67 @@ class FuncoesdeBanco {
 		mysqli_close($con);
 		return $InfoUser;
 	}
-
-	function CadastrarAluno($nome, $matricula, $email) {//E o código de usuário pro cara fazer login?
-		$ret = FALSE;
-		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+	
+	function GetIdAlunoByIdUsuario($idUsuario){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
-		} else {
-			$query = "INSERT INTO `Aluno`(Nome,Matricula,E-mail) VALUES ('$nome','$matricula','$email')";
-			if (mysqli_query($con, $query)) {
-				$ret = TRUE;
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT codAluno FROM Aluno WHERE codUsuario like '$idUsuario'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$resposta = $resposta['codAluno'];
 			}
 		}
 		mysqli_close($con);
-		return $ret;
+		return $resposta;
 	}
-
-	function CadastrarDepartamento($nome, $chefe_depart) {
-		$ret = FALSE;
-		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+	
+	function GetTurmasByIdAluno($idAluno){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
-		} else {
-			$query = "INSERT INTO `Departamento`(Nome,codChefededepartamento) VALUES ('$nome','$chefe_depart')";
-			if (mysqli_query($con, $query)) {
-				$ret = TRUE;
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT codTurma FROM AlunoTurma WHERE codAluno like '$idAluno'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$i = 0;
+				$vetor = array(mysqli_num_rows($resp));
+				while($resposta = mysqli_fetch_array($resp)){
+					$vetor[$i] = $resposta['codTurma'];
+					$i++;
+				}
 			}
 		}
+		$resposta = $vetor;
 		mysqli_close($con);
-		return $ret;
+		return $resposta;
 	}
-
-	function CadastrarAlunoTurma($matricula, $turma) {
-		/* Essa função irá cadastrar o Aluno em uma turma passando a matricula e a turma do aluno. Retorna verdadeiro se efeturar
-		 * cadastro com sucesso e falso caso contrário.
-		 */
-		return true;
+	
+	function GetDisciplinasByTurmas($Turmas){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$resposta;
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$vetor = array(sizeof($Turmas));
+			$cont = 0;
+			foreach ($Turmas as $value){
+				$query = "SELECT nome FROM Disciplina WHERE codDisciplina like '$value' limit 1";
+				$resp = mysqli_query($con, $query);
+				if (mysqli_num_rows($resp) > 0) {
+					$resposta = mysqli_fetch_array($resp);
+					$vetor[$cont] = $resposta["nome"];
+					$cont++;
+				}	
+			}
+		}
+		$resposta = $vetor;
+		mysqli_close($con);
+		return $resposta;
 	}
-
-	function CadastrarDisciplina($codigo, $nome, $prereq, $carga_horaria, $creditos) {
-
-		/* Essa função irá cadastrar uma disciplina com o código, nome, pre requisito, carga horária e créditos
-		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
-		 */
-		return true;
-	}
-
-	function CadastrarProfessor($nome, $matricula, $codigo_departamento, $email) {
-
-		/* Essa função irá cadastrar um professor com nome, matricula, código do departamento e o e-mail
-		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
-		 */
-		return true;
-	}
-
-	function CadastrarTurmas($nome, $codigo, $vagas_ofertadas, $horario, $professor) {
-
-		/* Essa função irá cadastrar uma turma com nome, código, vagas ofertadas, horario, professor
-		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
-		 */
-		return true;
-	}
-
-	function CriarTrabalho($titulo, $especificacao, $data) {
-
-		/* Essa função irá criar um trabalho com o título, uma area de especificação  e a data de término
-		 * e retornará verdadeiro se feito com sucesso e falso caso contrário.
-		 */
-		return true;
-	}
-
 }
 ?>

@@ -3,6 +3,5 @@
 	include "header.php";
 	include "menuadmin.php";
 	include "homeadmin.php";
-	include "bottom.php";
-	
+	include "bottom.php";	
 ?>
