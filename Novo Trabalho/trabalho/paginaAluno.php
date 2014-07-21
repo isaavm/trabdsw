@@ -4,6 +4,4 @@
 	include "menualuno.php";
 	include "homealuno.php";
 	include "bottom.php";
-	
-	
 ?>

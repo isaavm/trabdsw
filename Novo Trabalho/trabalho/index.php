@@ -48,17 +48,20 @@ if (empty($_SESSION['user'])) {
 	$ta = $_SESSION['user']['classe'];
 	echo 'Ola ' . $us . '. sua sessao esta aberta!<br />';
 	if ($ta == 3) {//aluno
-		//include "paginaAluno.php";
 		echo "foi aluno!";
+		header('Location: paginaAluno.php');
 	} elseif ($ta == 2) {//professor
 		//include "paginaProfessor.php";
 		echo "foi profe!";
+		header('Location: paginaProfessor.php');
 	} elseif ($ta == 1) {//chefe dpto
 		//include "paginaChefedpto.php";
 		echo "foi chefe!";
+		header('Location: paginaChefeDepart.php');
 	} elseif ($ta == 0) {//admin
 		//include "paginaAdministrador.php";
 		echo "foi admin!";
+		header('Location: paginaAdmin.php');
 	} else {
 		echo "Violação de acesso: Página não encontrada para seu nivel de acesso! A polícia federal está a caminho para te prender!";
 	}
