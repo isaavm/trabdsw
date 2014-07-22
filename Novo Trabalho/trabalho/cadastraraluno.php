@@ -1,9 +1,12 @@
 <?php
-if(!empty($_POST['nome']) && !empty($_POST['nome']) && !empty($_POST['nome']) ){
-	include "FuncoesdeBanco.php";
-	$class = new FuncoesdeBanco();
-	if($class->CadastrarAluno($_POST['nome'], $_POST['matricula'], $_POST['$email'])){
+//include "FuncoesdeBanco.php";
+$class = new FuncoesdeBanco();
+if(!empty($_POST['nome']) && !empty($_POST['matricula']) && !empty($_POST['email']) ){	
+	if($class->CadastrarAluno($_POST['nome'], $_POST['matricula'], $_POST['email'])){
 		echo "<script type='text/javascript'>.:Aluno cadastrado com sucesso!:.</script>";
+		unset($_POST['nome']);
+		unset($_POST['matricula']);
+		unset($_POST['email']);
 	}else{
 		echo "<script type='text/javascript'>.:Dados inválidos!:.</script>";
 	}
