@@ -1,35 +1,59 @@
-<center>
-	<div id="planodefundocentral">
+<?php
+if(!empty($_POST['titulo']) && !empty($_POST['disciplina']) && !empty($_POST['turma']) && !empty($_POST['data']) && !empty($_POST['observacao'])){
+	include_once "FuncoesdeBanco.php";
+	$class = new FuncoesdeBanco();
+	if($class->EnviarTrabalho($_POST['titulo'],$_POST['disciplina'],$_POST['turma'],$_POST['data'],$_POST['observacao'])){
+		echo "<script type='text/javascript'>.:Trabalho cadastrado com sucesso!:.</script>";
+		unset($_POST['titulo']);
+		unset($_POST['disciplina']);
+		unset($_POST['turma']);
+		unset($_POST['data']);
+		unset($_POST['observacao']);
+	}else{
+		echo "<script type='text/javascript'>.:Erro ao realizar o cadastro!:.</script>";
+	}
+}
+
+echo 
+"<center>
+	<div id='planodefundocentral'>
 		<h1>.:Enviar trabalho:.</h1>
-		<form action="#" method="post" name="formtrabalho">
+		<form action='#' method='post' name='formtrabalho'>
 			<p>
 				Anexos:
-				<input type="text" name="anexos"/>
-				<input type="button" value="anexar"/>
+				<input type='text' name='anexos'/>
+				<input type='button' value='anexar'/>
 				Link1, Link2
 			</p>
 			<p>
 				Título:
-				<input type="text" name="titulo"/>
+				<input type='text' name='titulo'/>
+			</p>
+			<p>
+				Disciplina:
+				<select id='disciplina' OnChange='CarregarTurmas();'>";
+$class = new FuncoesdeBanco();
+$disciplinas = $class->GetDisciplinas();
+foreach ($disciplinas as $value) {
+	echo "<option id='$value'>$value</option>";
+}
+echo "			</select>
 			</p>
 			<p>
 				Turma:
-				<select>
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="mercedes">Mercedes</option>
-					<option value="audi">Audi</option>
+				<select id='turma'>
 				</select>
 			</p>
 			<p>
 				Data de envio:
-				<input type="date" name="data"/>
+				<input type='date' name='data'/>
 			</p>
 			<p>
 				Observação:
-				<input type="text" style="width:500px;height:150px;" name="turma"/>
+				<input type='text' style='width:500px;height:150px;' name='observacao'/>
 			</p>
-			<input type="submit" value="Enviar"/>
+			<input type='submit' value='Enviar'/>
 		</form>
 	</div>
-</center>
+</center>";
+?>
