@@ -20,11 +20,9 @@ function CarregarTurmas(){
 	url: "retornaturmas.php", 
 	data: { disciplina: disciplina} , 
 	success: function(dados){  
-		$("#turma").html(dados); 
-		//$("#dataNascimento").val(informacoesPessoa[1]); 
+		$("#turma").html(dados);  
 		} 
 	});
-	//$("#turma").load("retornaturmas.php", { 'disciplina': ['Curitiba', 'Manaus'] } );
 }
 
 function BuscarTurmaDisciplinas(){
@@ -50,4 +48,8 @@ function BuscarTurmaDisciplinas(){
 			});
 		});
 	});
+}
+
+function CarregarDadosdoTrabalho(){
+	
 }

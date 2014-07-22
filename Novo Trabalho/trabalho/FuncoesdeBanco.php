@@ -216,9 +216,7 @@ class FuncoesdeBanco{
 		return $resposta;
 	}
 
-	function GetDisciplinas(){
-		// Esta aqui está dando erro.
-		
+	function GetDisciplinas(){		
 		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]) or die(mysqli_error());
 		$disciplinas = array();
 		if (mysqli_connect_errno()) {
@@ -330,6 +328,35 @@ class FuncoesdeBanco{
 		}
 		mysqli_close($con);
 		return $departamentos;
+	}
+	
+	function CriarTrabalho($titulo, $observacao, $dataEnvio, $turma){
+		// Em desenvolvimento
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT codTurma FROM Turma WHERE ";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$departamentos = $resposta['nome'];		
+			}			
+			
+			$query = "INSERT INTO Trabalho(titulo, observacao, dataEnvio, codTurma) VALUES('$titulo','$observacao','$dataEnvio','$codTurma')";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$departamentos = $resposta['nome'];		
+			}
+		}
+		mysqli_close($con);
+		return $departamentos;
+	}
+	
+	
+	function EnviarTrabalho(){
+		
 	}
 }
 ?>
