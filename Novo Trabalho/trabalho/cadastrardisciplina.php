@@ -2,7 +2,7 @@
 if(!empty($_POST['nome']) && !empty($_POST['codigo']) && !empty($_POST['prereq']) && !empty($_POST['carga_horaria']) && !empty($_POST['creditos'])){
 	include "FuncoesdeBanco.php";
 	if($class->CadastrarDisciplina()){
-			
+		
 	}		
 }
 echo 

@@ -1,8 +1,8 @@
 <?php
-header("Content-Type: charset=UTF-8");
+header("Content-type: text/html; charset=UTF-8");
 include "FuncoesdeBanco.php";
 $class = new FuncoesdeBanco();
-$disciplina = utf8_encode($_POST['disciplina']);
+$disciplina = $_POST['disciplina'];
 echo "<option id='vazio'> $disciplina </option>";
 $turmas = $class->GetTurmasByDisciplina($disciplina);
 echo $turmas;

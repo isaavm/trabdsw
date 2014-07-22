@@ -47,7 +47,7 @@
 }
 
 #bottom {
-	background-image: url("../Imagens/rodapé.png");
+	background-image: url("../Imagens/rodape.png");
 	background-repeat: no-repeat;
 	background-size: 1100px 90px;
 	margin-top: 20px;
@@ -79,7 +79,7 @@
 	height: 500px;
 }
 
-#centerlogin a{
+#centerlogin a {
 	text-decoration: none;
 	color: grey;
 }
@@ -120,7 +120,7 @@
 }
 
 #planodefundocentral {
-	background: fff974;
+	background-color: fff974;
 	width: 1100px;
 	height: 500px;
 	border-radius: 20px;
@@ -135,16 +135,17 @@
 	display: flex;
 }
 
-#menu{
+#menu {
 	width: 1100px;
 	height: 100px;
 }
 
-#menu ul{
+#menu ul {
 	border-left: 200px;
+	list-style: none;
 }
 
-#menu li{
+#menu li {
 	float: left;
 }
 
