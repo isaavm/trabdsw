@@ -216,9 +216,10 @@ class FuncoesdeBanco{
 		return $resposta;
 	}
 
-
 	function GetDisciplinas(){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		// Esta aqui está dando erro.
+		
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]) or die(mysqli_error());
 		$disciplinas = array();
 		if (mysqli_connect_errno()) {
 			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
@@ -227,8 +228,8 @@ class FuncoesdeBanco{
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
-				while($resp = mysqli_fetch_array($resp)){
-					$disciplinas[$cont] = $resp['nome'];
+				while($resposta = mysqli_fetch_array($resp)){
+					$disciplinas[$cont] = $resposta['nome'];
 					$cont++;	
 				}
 			}
@@ -237,24 +238,54 @@ class FuncoesdeBanco{
 		return $disciplinas;
 	}
 	
-	function GetTurmasByDisciplina(){
+	function GetTurmasByDisciplina($Disciplina){
 		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
 		$disciplinas = array();
 		if (mysqli_connect_errno()) {
 			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
 		}else{
-			$query = "SELECT nome FROM Disciplina";
+			$query = "SELECT codDisciplina FROM Disciplina WHERE nome like '$Disciplina' limit 1";
 			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resp = mysqli_fetch_array($resp);
+				$codDisciplina = $resp['codDisciplina'];		
+			}
+			
+			$query = "SELECT codTurma, Semestre FROM Turma WHERE codDisciplina like '$codDisciplina'";
+			$resp = mysqli_query($con, $query);
+			$turmas = array();
+			$periodos = array();
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
-				while($resp = mysqli_fetch_array($resp)){
-					$disciplinas[$cont] = $resp['nome'];
-					$cont++;	
-				}
+				while($resposta = mysqli_fetch_array($resp)){ 
+					$turmas[$cont] = $resposta['codTurma'];
+					$periodos[$cont] = $resposta['Semestre'];	 
+					$cont++;
+				}		
+			}
+		}
+		$resposta = array();
+		$resposta['codigo'] = $turmas;
+		$resposta['semestre'] = $periodos;
+		mysqli_close($con);
+		return $resposta;
+	}
+
+	function CadastrarDisciplina(){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$disciplinas = array();
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "INSERT INTO codDisciplina FROM Disciplina WHERE nome like '$Disciplina' limit 1";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resp = mysqli_fetch_array($resp);
+				$codDisciplina = $resp['codDisciplina'];		
 			}
 		}
 		mysqli_close($con);
-		return $disciplinas;
+		return $resposta;
 	}
 }
 ?>

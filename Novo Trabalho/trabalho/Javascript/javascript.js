@@ -13,8 +13,18 @@ function LimparCampo(){
 	this.value="";
 }
 
-function Testar(){
-	alert("Nois!");
+function CarregarTurmas(){
+	disciplina = document.getElementById("disciplina").value;
+	$.ajax({ 
+	type: "POST", 
+	url: "retornaturmas.php", 
+	data: { disciplina: disciplina} , 
+	success: function(dados){  
+		$("#turma").html(dados); 
+		//$("#dataNascimento").val(informacoesPessoa[1]); 
+		} 
+	});
+	//$("#turma").load("retornaturmas.php", { 'disciplina': ['Curitiba', 'Manaus'] } );
 }
 
 function BuscarTurmaDisciplinas(){

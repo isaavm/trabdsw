@@ -2,6 +2,7 @@
 	include "default.php";
 	include "header.php";
 	include "menualuno.php";
+	//include "cadastrardisciplina.php";
 	//include "homealuno.php";
 	include "cadastraralunoturma.php";
 	//include "cadastraraluno.php";

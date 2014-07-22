@@ -9,6 +9,8 @@ if(!empty($_POST['matricula']) && !empty($_POST['turma'])){
 	}
 }
 
+$disciplinas = $class->GetDisciplinas();
+
 echo 
 "<center>
 	<div id='planodefundocentral'>
@@ -20,8 +22,8 @@ echo
 			</p>
 			<p>
 				Disciplina:
-				<select name='disciplina' onclick='Testar();'>";
-	$disciplinas = $class->GetDisciplinas();
+				<select id='disciplina' name='disciplina' OnChange='CarregarTurmas();'>
+				<option id='vazio'> </option>";
 	foreach ($disciplinas as $value) {
 		echo "<option value='$value'>$value</option>";
 	}					
@@ -29,11 +31,7 @@ echo "</select>
 			</p>
 			<p>
 				Turma:
-				<select name='turma'>
-					<option value='volvo'>Volvo</option>
-					<option value='saab'>Saab</option>
-					<option value='mercedes'>Mercedes</option>
-					<option value='audi'>Audi</option>
+				<select name='turma' id='turma' style='width:200px;'>
 				</select>
 			</p>
 			<input type='submit' value='Salvar'/>
