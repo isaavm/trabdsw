@@ -12,3 +12,32 @@ function MenuDropDown() {
 function LimparCampo(){
 	this.value="";
 }
+
+function Testar(){
+	alert("Nois!");
+}
+
+function BuscarTurmaDisciplinas(){
+	$(document).ready(function(){
+		$("a").click(function(evt) {
+			evt.preventDefault();
+			
+			var href = $(this).attr('href');
+			
+			
+			//Começo do Ajax
+			$.ajax({
+				type: "POST",
+				url: href,
+				//data: "",
+				beforeSend: function(){
+						
+				},
+				sucess:function(data){
+					$("#pagina").html(data);
+					
+				}
+			});
+		});
+	});
+}

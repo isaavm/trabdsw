@@ -1,6 +1,7 @@
 <?php
-
-class FuncoesdeBanco {
+// Declaração que faz com que os caractecter do banco fiquem certos.
+header("Content-type: text/html; charset=iso-8859-1");
+class FuncoesdeBanco{
 	private $Banco = array("servidor" => "mysql.jeiks.net", "usuario" => "g1dsw", "senha" => "ju76+klba", "banco" => "g1dsw");
 
 	function Logar($User, $Pass) {
@@ -144,6 +145,116 @@ class FuncoesdeBanco {
 		$resposta = $vetor;
 		mysqli_close($con);
 		return $resposta;
+	}
+	
+	function GeraSenhaAluno($matricula){
+		// Fazer essa função ainda.
+		return $matricula;
+	}
+	
+	function CadastrarAluno($nome, $matricula, $email){
+		// Falta corrigir essa função ainda.
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$resposta;
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$pass =	$this->GeraSenhaAluno($matricula);
+			$passcript = md5($pass);
+			$query = "INSERT INTO Usuario(username, password,nivelAcesso) VALUES ('$matricula','$passcript',3)";
+			$resp = mysqli_query($con, $query);
+			
+			$query = "SELECT codUsuario FROM Usuario WHERE username like '$matricula' limit 1";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$codUsuario = $resposta['codUsuario'];
+			}
+			
+			$query = "INSERT INTO Aluno(nome, matricula, email, codUsuario) VALUES('$nome','$matricula','$email','$codUsuario')";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$resposta = "Feito com sucesso!";
+			}	
+		}
+		
+		mysqli_close($con);
+		return $resposta;
+	}
+	
+	function CadastrarAlunoTurma($matricula, $turma){
+		// Terminar essa função
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$resposta;
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT codAluno FROM Aluno WHERE matricula like '$matricula' limit 1";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resp = mysqli_fetch_array($resp);
+				$codUsuario = $resp['codAluno'];
+			}	
+			
+			$query = "SELECT codUsuario FROM Turma WHERE username like '$matricula' limit 1";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$codUsuario = $resposta['codUsuario'];
+			}
+			
+			$query = "INSERT INTO Aluno(nome, matricula, email, codUsuario) VALUES('$nome','$matricula','$email','$codUsuario')";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$resposta = "Feito com sucesso!";
+			}	
+		}
+		
+		mysqli_close($con);
+		return $resposta;
+	}
+
+
+	function GetDisciplinas(){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$disciplinas = array();
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT nome FROM Disciplina";
+			$resp = mysqli_query($con, $query);
+			$cont = 0;
+			if (mysqli_num_rows($resp) > 0) {
+				while($resp = mysqli_fetch_array($resp)){
+					$disciplinas[$cont] = $resp['nome'];
+					$cont++;	
+				}
+			}
+		}
+		mysqli_close($con);
+		return $disciplinas;
+	}
+	
+	function GetTurmasByDisciplina(){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$disciplinas = array();
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT nome FROM Disciplina";
+			$resp = mysqli_query($con, $query);
+			$cont = 0;
+			if (mysqli_num_rows($resp) > 0) {
+				while($resp = mysqli_fetch_array($resp)){
+					$disciplinas[$cont] = $resp['nome'];
+					$cont++;	
+				}
+			}
+		}
+		mysqli_close($con);
+		return $disciplinas;
 	}
 }
 ?>
