@@ -1,5 +1,6 @@
 <?php
 //include "FuncoesdeBanco.php";
+header("Content-type: text/html; charset=UTF-8");
 $class = new FuncoesdeBanco();
 if(!empty($_POST['nome']) && !empty($_POST['matricula']) && !empty($_POST['email']) ){	
 	if($class->CadastrarAluno($_POST['nome'], $_POST['matricula'], $_POST['email'])){

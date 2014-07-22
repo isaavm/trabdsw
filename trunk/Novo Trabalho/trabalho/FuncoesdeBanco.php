@@ -1,6 +1,6 @@
 <?php
 // Declaração que faz com que os caractecter do banco fiquem certos.
-header("Content-type: text/html; charset=iso-8859-1");
+header("Content-type: text/html; charset=UTF-8");
 class FuncoesdeBanco{
 	private $Banco = array("servidor" => "mysql.jeiks.net", "usuario" => "g1dsw", "senha" => "ju76+klba", "banco" => "g1dsw");
 
@@ -286,6 +286,50 @@ class FuncoesdeBanco{
 		}
 		mysqli_close($con);
 		return $resposta;
+	}
+	
+	function CadastrarProfessor($nome, $matricula, $depart, $email){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$resposta = false;
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT codDepartamento FROM Departamento WHERE nome like '$depart'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resp = mysqli_fetch_array($resp);
+				$codDepartamento = $resp['codDepartamento'];		
+			}
+			
+			$query = "INSERT INTO Professor() VALUES ('$nome','$matricula',$codDepartamento,'$email')";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resp = mysqli_fetch_array($resp);		
+				$resposta = true;
+			}
+		}
+		mysqli_close($con);
+		return $resposta;
+	}
+	
+	function GetDepartamentos(){
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{
+			$query = "SELECT nome FROM Departamento";
+			$resp = mysqli_query($con, $query);
+			$cont = 0;
+			$departamentos = array();
+			if (mysqli_num_rows($resp) > 0) {
+				while($resposta = mysqli_fetch_array($resp)){
+					$departamentos = $resposta['nome'];		
+					$cont++;
+				}
+			}
+		}
+		mysqli_close($con);
+		return $departamentos;
 	}
 }
 ?>
