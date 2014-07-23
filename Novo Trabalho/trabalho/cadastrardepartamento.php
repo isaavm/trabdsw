@@ -1,4 +1,7 @@
 <?php
+include_once "default.php";
+include_once "header.php";
+include_once "menuadmin.php";
 echo 
 "<center>
 	<div id='planodefundocentral'>
@@ -11,17 +14,10 @@ echo
 			<p>
 				Nome:
 				<input type='text' name='nome' />
-			</p>
-			<p>
-				Chefe de departamento:
-				<input type='text' name='chefe_depart' value='matrícula'/>
-			</p>
-			<p>
-				Sub-chefe de departamento:
-				<input type='text' name='subchefe_depart' value='matrícula'/>
 			</p>			
 			<input type='submit' value='Cadastrar'/>
 		</form>
 	</div>
 </center>";
+include_once "bottom.php";
 ?>

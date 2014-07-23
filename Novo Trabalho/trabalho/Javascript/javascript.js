@@ -25,15 +25,13 @@ function CarregarTurmas(){
 	});
 }
 
-function BuscarTurmaDisciplinas(){
+/*function BuscarTurmaDisciplinas(){
 	$(document).ready(function(){
 		$("a").click(function(evt) {
 			evt.preventDefault();
 			
 			var href = $(this).attr('href');
 			
-			
-			//Começo do Ajax
 			$.ajax({
 				type: "POST",
 				url: href,
@@ -48,15 +46,23 @@ function BuscarTurmaDisciplinas(){
 			});
 		});
 	});
-}
+}*/
 
 function CarregarDadosdoTrabalho(){
 	
 }
 
-
 function CarregarTrabalhos(){
-	
+	// Testar isso daqui
+	disciplina = document.getElementById("turma").value;
+	$.ajax({ 
+	type: "POST", 
+	url: "retornaturmas.php", 
+	data: { turma: turma} , 
+	success: function(dados){  
+		$("#trabalho").html(dados);  
+		} 
+	});
 }
 
 function Menu(){
