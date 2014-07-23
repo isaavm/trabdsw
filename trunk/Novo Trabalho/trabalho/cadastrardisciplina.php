@@ -1,9 +1,14 @@
 <?php
 if(!empty($_POST['nome']) && !empty($_POST['codigo']) && !empty($_POST['prereq']) && !empty($_POST['carga_horaria']) && !empty($_POST['creditos'])){
 	include "FuncoesdeBanco.php";
-	if($class->CadastrarDisciplina()){
-		
-	}		
+	$class = new FuncoesdeBanco();
+	if($class->CadastrarDisciplina($_POST['codigo'],$_POST['nome'],$_POST['prereq'],$_POST['carga_horaria'],$_POST['creditos'])){
+		echo "<script type='text/javascript'>alert('.:Cadastro efetuado com sucesso:.');</script>";			
+		}
+		else {
+			echo "<script type='text/javascript'>alert('.:Cadastro efetuado sem sucesso, tente novamente:.');</script>";						
+		}		
+			
 }
 echo 
 "<center>
