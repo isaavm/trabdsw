@@ -38,7 +38,7 @@ echo "
 			</li>
 			<li>
 				<div class='botaomenu'> 
-					<a href=''>
+					<a href='disciplinas.php'>
 						Disciplinas
 					</a>
 				</div>

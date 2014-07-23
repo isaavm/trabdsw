@@ -127,12 +127,11 @@
 }
 
 #planodefundocentral form {
-	float: left;
+	margin: 0 auto;
 }
 
 #planodefundocentral form p {
-	padding: 20px;
-	display: flex;
+	padding: 20px;	
 }
 
 .botaomenu {
@@ -168,8 +167,10 @@ ul, li {
 #menu li {
 	float: left;
 	padding: 0 10px;
-	width: 200px;
+	width: 230px;
+	height: 80px;
 }
+
 #menu li ul {
 	position: absolute;
 }

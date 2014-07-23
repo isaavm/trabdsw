@@ -14,14 +14,14 @@ echo "
 			<ul>
 				<li>
 					<div class='botaomenu'> 
-						<a href='cadastrarprofessor.php'>
-							Professor
+						<a href='cadastrardepartamento.php'>
+							Departamento
 						</a>
 					</div>
 				</li>
 				<li>
 					<div class='botaomenu'> 
-						<a href=''>
+						<a href='cadastrarchefedepart.php'>
 							Chefe de Departamento
 						</a>
 					</div>

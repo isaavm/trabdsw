@@ -334,8 +334,7 @@ class FuncoesdeBanco{
 			$departamentos = array();
 			if (mysqli_num_rows($resp) > 0) {
 				while($resposta = mysqli_fetch_array($resp)){
-					$departamentos = $resposta['nome'];		
-					$cont++;
+					$departamentos[$cont++] = $resposta['nome'];
 				}
 			}
 		}
@@ -450,7 +449,5 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	
 }
 ?>
