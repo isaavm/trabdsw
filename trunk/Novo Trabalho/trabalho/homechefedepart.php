@@ -2,7 +2,7 @@
 echo 
 "<center>
 	<div id='planodefundocentral'>
-		<h1> .:Página Inicial:.</h1>
+		<h1> .:Home:.</h1>
 		<table>
 			<tr>
 				<td>

@@ -65,6 +65,18 @@ function CarregarTrabalhos(){
 	});
 }
 
+function CarregarData(){
+	disciplina = document.getElementById("turma").value;
+	$.ajax({ 
+	type: "POST", 
+	url: "retornaDatas.php", 
+	data: { turma: turma} , 
+	success: function(dados){  
+		$("#trabalho").html(dados);  
+		} 
+	});
+}
+
 function Menu(){
 	$(function(){ 
 				$("#menu li a").mouseover(function(){

@@ -5,6 +5,7 @@ echo "
 <script type='text/javascript'>Menu();</script>
 <center>
 	<div id='menumenu'>
+	<div id='teste'>
 		<ul id='menu'>
 			<li>
 				<div class='botaomenu'> 
@@ -54,18 +55,13 @@ echo "
 			</li>
 			<li>
 				<div class='botaomenu'> 
-					<a href=''>
+					<a href='disciplinas.php'>
 						Disciplinas
 					</a>
 				</div>
-				<ul>";
-$disciplinas = $class->GetDisciplinasByProfessor($_SESSION['user']['nome']);
-foreach ($disciplinas as $value) {
-	echo "<li><div class='botaomenu'><a href='disciplinaespecífica.php'>$value</a></div></li>";
-}
-echo   "</ul>
 			</li>
 		</ul>
+	</div>
 	</div>
 </center>";
 ?>

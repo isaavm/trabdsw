@@ -1,4 +1,13 @@
 <?php
+include_once "default.php";
+include_once "header.php";
+// Se o usuário for professor
+if($_SESSION['user']['classe'] == 2){
+	include_once "menuprofessor.php";	
+}else{
+	include_once "menuchefedepart.php";
+}
+
 if(!empty($_POST['titulo']) && !empty($_POST['especificacao']) && !empty($_POST['data']) && !empty($_POST['dataanexo']) && !empty($_POST['disciplina']) && !empty($_POST['turma'])){
 	include_once "FuncoesdeBanco.php";
 	$class = new FuncoesdeBanco();
@@ -15,7 +24,7 @@ if(!empty($_POST['titulo']) && !empty($_POST['especificacao']) && !empty($_POST[
 
 echo
 "<center>
-	<div id='planodefundocentral' style='height: 600px;'>
+	<div id='planodefundocentral' style='height: 700px;'>
 		<h1>.:Criar trabalho:.</h1>
 		<form action='#' method='post' form='formcriartrabalho'>
 			<p>
@@ -55,8 +64,9 @@ echo "</select>
 			<p>
 				Links: Jeiks.net
 			</p>			
-			<input type='submit' value='Salvar'/>
+			<input type='submit' value='Criar' style='width:100px;'/>
 		</form>
 	</div>
 </center>";
+include "bottom.php";
 ?>

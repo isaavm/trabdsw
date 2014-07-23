@@ -4,6 +4,7 @@ echo "
 <center>
 </div>
 <div id='menumenu'>
+<div id='teste'>
 	<ul id='menu'>
 		<li>
 			<div class='botaomenu'> 
@@ -29,6 +30,7 @@ echo "
 			</ul>				
 		</li>		
 	</ul>
+	</div>
 </div>
 </center>";
 ?>

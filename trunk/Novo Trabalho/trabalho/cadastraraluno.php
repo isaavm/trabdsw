@@ -1,5 +1,14 @@
 <?php
+include "default.php";
+include "header.php";
+if($_SESSION['user']['classe'] == 2){
+	include_once "menuprofessor.php";	
+}else{
+	include_once "menuchefedepart.php";
+}
 include_once "FuncoesdeBanco.php";
+
+
 header("Content-type: text/html; charset=UTF-8");
 $class = new FuncoesdeBanco();
 if(!empty($_POST['nome']) && !empty($_POST['matricula']) && !empty($_POST['email']) ){	
@@ -26,11 +35,12 @@ echo
 				<input type='text' name='matricula' />
 			</p>
 			<p>
-				e-mail:
+				E-mail:
 				<input type='email' name='email' />
 			</p>
 			<input type='submit' value='Salvar'/>
 		</form>
 	</div>
 </center>";
+include "bottom.php";
 ?>

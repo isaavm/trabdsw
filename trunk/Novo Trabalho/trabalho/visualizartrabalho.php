@@ -1,7 +1,14 @@
 <?php
 include_once "default.php";
 include_once "header.php";
-include_once "menualuno.php";
+if($_SESSION['user']['classe'] == 1){
+	include_once "menuchefedepart.php";	
+}elseif($_SESSION['user']['classe'] == 2){
+	include_once "menuprofessor.php";
+}elseif($_SESSION['user']['classe'] == 3){
+	include_once "menualuno.php";	
+}
+
 include_once "FuncoesdeBanco.php";
 $class = new FuncoesdeBanco();
 if(!empty($_POST['disciplina']) && !empty($_POST['turma']) && !empty($_POST['trabalho'])){
