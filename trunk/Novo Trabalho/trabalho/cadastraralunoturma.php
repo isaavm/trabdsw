@@ -1,5 +1,9 @@
 <?php
-//include "FuncoesdeBanco.php";
+include_once "default.php";
+include_once "header.php";
+include_once "menualuno.php";
+
+include_once "FuncoesdeBanco.php";
 $class = new FuncoesdeBanco();
 if(!empty($_POST['matricula']) && !empty($_POST['turma'])){
 	if($class->CadastrarAlunoTurma($matricula,$turma)){
@@ -38,4 +42,5 @@ echo "</select>
 		</form>
 	</div>
 </center>";
+include_once "bottom.php";
 ?>

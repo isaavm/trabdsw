@@ -1,6 +1,5 @@
 <?php
 echo "
-<body>
 <script type='text/javascript'>Menu();</script>
 <center>
 </div>

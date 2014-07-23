@@ -1,6 +1,9 @@
 <?php
-echo "<script text='text/javascript'>MenuDropDown();</script>";
-echo "<center>
+include_once "FuncoesdeBanco.php";
+$class = new FuncoesdeBanco();
+echo "
+<script type='text/javascript'>Menu();</script>
+<center>
 	<div id='menumenu'>
 		<ul id='menu'>
 			<li>
@@ -29,33 +32,21 @@ echo "<center>
 			<li>
 				<div class='botaomenu'> 
 					<a href=''>
-						Chamada
+						Cadastrar
 					</a>
 				</div>
-			</li>
-			<li>
-				<div class='botaomenu'> 
-					<a href=''>
-						Aluno
-					</a>
-				</div>
-				<ul class='sub-menu'>
+				<ul>
 					<li>
 						<div class='botaomenu'> 
-							<a href=''>
-								Cadastrar
+							<a href='cadastraralunoturma.php'>
+								Aluno
 							</a>
 						</div>
 					</li>
-						<div class='botaomenu'> 
-							<a href='cadastraralunoturma.php'>
-								Cadastrar Aluno/Turma
-							</a>
-						</div>
 					<li>
 						<div class='botaomenu'> 
 							<a href='cadastrarturmas.php'>
-								Cadastrar Turma
+								Turma
 							</a>
 						</div>
 					</li>					
@@ -67,22 +58,12 @@ echo "<center>
 						Disciplinas
 					</a>
 				</div>
-				<ul>
-					<li>
-						<div> 
-							<a href=''>
-								Programação
-							</a>
-						</div>					
-					</li>
-					<li>
-						<div> 
-							<a href=''>
-								Compiladores
-							</a>
-						</div>
-					</li>					
-				</ul>
+				<ul>";
+$disciplinas = $class->GetDisciplinasByProfessor($_SESSION['user']['nome']);
+foreach ($disciplinas as $value) {
+	echo "<li><div class='botaomenu'><a href='disciplinaespecífica.php'>$value</a></div></li>";
+}
+echo   "</ul>
 			</li>
 		</ul>
 	</div>
