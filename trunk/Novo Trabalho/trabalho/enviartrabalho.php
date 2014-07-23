@@ -20,16 +20,6 @@ echo
 		<h1>.:Enviar trabalho:.</h1>
 		<form action='#' method='post' name='formtrabalho'>
 			<p>
-				Anexos:
-				<input type='text' name='anexos'/>
-				<input type='button' value='anexar'/>
-				Link1, Link2
-			</p>
-			<p>
-				Título:
-				<input type='text' name='titulo'/>
-			</p>
-			<p>
 				Disciplina:
 				<select id='disciplina' OnChange='CarregarTurmas();'>";
 $class = new FuncoesdeBanco();
@@ -41,16 +31,23 @@ echo "			</select>
 			</p>
 			<p>
 				Turma:
-				<select id='turma'>
+				<select id='turma' OnChange='CarregarTrabalhos();'>
 				</select>
 			</p>
 			<p>
-				Data de envio:
-				<input type='date' name='data'/>
-			</p>
+				Trabalho:
+				<select id='trabalho' />
+				</select>
+			</p>			
 			<p>
 				Observação:
 				<input type='text' style='width:500px;height:150px;' name='observacao'/>
+			</p>
+			<p>
+				Anexos:
+				<input type='text' name='anexos'/>
+				<input type='button' value='anexar'/>
+				Link1, Link2
 			</p>
 			<input type='submit' value='Enviar'/>
 		</form>
