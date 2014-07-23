@@ -53,3 +53,8 @@ function BuscarTurmaDisciplinas(){
 function CarregarDadosdoTrabalho(){
 	
 }
+
+
+function CarregarTrabalhos(){
+	
+}
