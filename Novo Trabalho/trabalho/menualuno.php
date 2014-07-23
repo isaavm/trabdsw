@@ -1,7 +1,7 @@
 <?php
 include "FuncoesdeBanco.php";
 $classe = new FuncoesdeBanco();
-echo "<body>
+echo "
 <script type='text/javascript'>Menu();</script>
 <center>
 	<div id='menumenu'>

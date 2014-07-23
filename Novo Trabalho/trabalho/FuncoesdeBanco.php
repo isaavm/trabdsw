@@ -415,5 +415,42 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $resposta;
 	}
+	
+	function GetDisciplinasByProfessor($professor){
+		// Para o isaac implementar
+		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+		}else{			
+			$query = "SELECT codProfessor FROM Professor WHERE nome like '$professor'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$codProfessor = $resposta['codProfessor'];		
+			}
+			$turmas = array();
+			$cont = 0;
+			$query = "SELECT codTurma FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				while($resposta = mysqli_fetch_array($resp)){
+					$turmas[$cont++] = $resposta['codTurma'];	
+				}	
+			}
+			
+			$query = "SELECT codDisciplina FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				while($resposta = mysqli_fetch_array($resp)){
+					$turmas[$cont++] = $resposta['codTurma'];	
+				}	
+			}			
+			
+		}
+		mysqli_close($con);
+		return $resposta;
+	}
+	
+	
 }
 ?>
