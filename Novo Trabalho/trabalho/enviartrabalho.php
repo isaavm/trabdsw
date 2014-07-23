@@ -1,4 +1,7 @@
 <?php
+include_once "default.php";
+include_once "header.php";
+include_once "menualuno.php";
 if(!empty($_POST['titulo']) && !empty($_POST['disciplina']) && !empty($_POST['turma']) && !empty($_POST['data']) && !empty($_POST['observacao'])){
 	include_once "FuncoesdeBanco.php";
 	$class = new FuncoesdeBanco();
@@ -53,4 +56,5 @@ echo "			</select>
 		</form>
 	</div>
 </center>";
+include_once "bottom.php";
 ?>

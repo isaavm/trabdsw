@@ -1,8 +1,11 @@
 <?php
-echo "<script text='text/javascript'>MenuDropDown();</script>";
-echo "<center>
-<div id='menu'>
-	<ul>
+echo "
+<body>
+<script type='text/javascript'>Menu();</script>
+<center>
+</div>
+<div id='menumenu'>
+	<ul id='menu'>
 		<li>
 			<div class='botaomenu'> 
 				<a href=''>
@@ -12,7 +15,7 @@ echo "<center>
 			<ul>
 				<li>
 					<div class='botaomenu'> 
-						<a href=''>
+						<a href='cadastrarprofessor.php'>
 							Professor
 						</a>
 					</div>

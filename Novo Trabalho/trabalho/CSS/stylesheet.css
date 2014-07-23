@@ -135,28 +135,65 @@
 	display: flex;
 }
 
-#menu {
-	width: 1100px;
-	height: 100px;
+.botaomenu {
+	background-image: url("../Imagens/Vazio.png");
+	background-repeat: no-repeat;
+	background-size: 230px 80px;
+	width: 230px;
+	height: 80px;
+	font: Arial;
+	font-size: 30px;
+	line-height: 70px;
+	background-color: white;
 }
 
-#menu ul {
-	border-left: 200px;
+li a{
+	text-decoration: none;
+	color: black;
+	
+}
+
+ul, li {
+	padding: 0;
+	margin: 0;
 	list-style: none;
 }
 
+#menu {
+	padding: 5px;
+	width: 1100px;
+	overflow: hidden;
+	height: 100px;
+}
 #menu li {
 	float: left;
+	padding: 0 10px;
+	width: 200px;
+}
+#menu li ul {
+	position: absolute;
+}
+#menu li ul li {
+	float: none;
+}
+#menu li ul {
+	display: none;
+}
+#menu li ul li ul {
+	position: absolute;
+	margin-left: 100px;
+	margin-top: -20px;
+}
+#menu li ul li ul li {
+}
+#menumenu{
+	margin: 0 auto;
+	width: 1100px;
+	height: 100px;
+	border: 1px solid;
 }
 
-.botaomenu {
-	background-image: url("../Imagens/BotaoVazio.png");
-	background-repeat: no-repeat;
-	background-size: 230px 60px;
-	width: 230px;
-	height: 60px;
-	font: Arial;
-	font-size: 30px;
-	line-height: 20px;
-	display: block;
+#menu ul{
+	margi
+	margin: 0 auto;
 }

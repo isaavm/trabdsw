@@ -173,12 +173,25 @@ class FuncoesdeBanco{
 			
 			$query = "INSERT INTO Aluno(nome, matricula, email, codUsuario) VALUES('$nome','$matricula','$email','$codUsuario')";
 			$resp = mysqli_query($con, $query);
-			if (mysqli_num_rows($resp) > 0) {
+			/*if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
 				$resposta = "Feito com sucesso!";
-			}	
+			}*/	
 		}
-		
+
+	// Parte do código que envia o e-mail para a pessoa!
+	$headers = "MIME-Version: 1.1\r\n";
+	$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+	$headers .= "From: angelo@g1dsw.com.br\r\n";
+	$headers .= "Return-Path: angelo@g1dsw.com\r\n"; 
+	$envio = mail("$email", "Teste E-mail PHP", "Teste de E-mail PHP! Sua senha é: $pass", $headers);
+ 
+	if($envio){
+ 		echo "Mensagem enviada com sucesso";
+	}
+	else{
+ 		echo "A mensagem não pode ser enviada";
+	}	
 		mysqli_close($con);
 		return $resposta;
 	}

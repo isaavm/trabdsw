@@ -1,4 +1,7 @@
 <?php
+include_once "default.php";
+include_once "header.php";
+include_once "menuprofessor.php";
 echo " 
 <center>
 	<div id='planodefundocentral'>
@@ -44,4 +47,5 @@ echo "
 		</form>
 	</div>
 </center>";
+include_once "bottom.php";
 ?>

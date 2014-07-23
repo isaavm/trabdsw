@@ -1,5 +1,8 @@
 <?php
 session_start();
+include_once "default.php";
+include_once "header.php";
+include_once "menuadmin.php";
 if(!empty($_POST['nome']) && !empty($_POST['matricula']) && !empty($_POST['cod_depart']) && !empty($_POST['email'])){
 	include_once "FuncoesdeBanco.php";
 	$class = new FuncoesdeBanco();
@@ -45,4 +48,5 @@ echo "</p>
 		</form>
 	</div>
 </center>";
+include_once "bottom.php";
 ?>

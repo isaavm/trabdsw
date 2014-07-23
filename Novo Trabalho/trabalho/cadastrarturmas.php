@@ -1,15 +1,13 @@
-<?php
-	include "FuncoesdeBanco.php";
-	$class = new FuncoesdeBanco();
-	if(!empty($_POST['nome']) && !empty($_POST['codigo']) && !empty($_POST['vagas_ofertadas']) && !empty($_POST['horario']) && !empty($_POST['professor'])){		
-		if ($class->CadastrarTurmas($_POST['nome'],$_POST['codigo'],$_POST['vagas_ofertadas'],$_POST['horario'], $_POST['professor'])){
-			echo "<script type='text/javascript'>alert('.:Cadastro efetuado com sucesso:.');</script>";			
-		}
-		else {
-			echo "<script type='text/javascript'>alert('.:Cadastro efetuado sem sucesso, tente novamente:.');</script>";						
-		}
-	}
-echo "<center>
+<?
+include_once "default.php";
+include_once "header.php";
+if($_SESSION['user']['classe'] == 2){
+	include_once "menuprofessor.php";
+}else{
+	include_once "menuchefedepart.php";
+}
+echo
+"<center>
 	<div id='planodefundocentral'>
 		<h1>.:Cadastrar Turmas:.</h1>
 		<form action='#' method='post' form='formcadastturmas'>
@@ -23,19 +21,18 @@ echo "<center>
 			</p>
 			<p>
 				Vagas ofertadas:
-				<input type='text' name='vagas_ofertadas' />
+				<input type='text' name='prereq' />
 			</p>
 			<p>
 				Horário:
-				<input type='text' name='horario' />
+				<input type='text' name='prereq' />
 			</p>
 			<p>
 				Professor:
-				<input type='text' name='professor' />
+				<input type='text' name='prereq' />
 			</p>
 			<input type='submit' value='Salvar'/>
 		</form>
 	</div>
 </center>";
-
 ?>

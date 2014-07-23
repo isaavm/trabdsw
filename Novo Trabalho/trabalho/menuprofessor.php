@@ -1,8 +1,8 @@
 <?php
 echo "<script text='text/javascript'>MenuDropDown();</script>";
 echo "<center>
-	<div id='nav'>
-		<ul >
+	<div id='menumenu'>
+		<ul id='menu'>
 			<li>
 				<div class='botaomenu'> 
 					<a href=''>
@@ -12,14 +12,14 @@ echo "<center>
 				<ul>
 					<li>
 						<div class='botaomenu'> 
-							<a href=''>
+							<a href='criartrabalho.php'>
 								Criar Trabalho
 							</a>
 						</div>
 					</li>
 					<li>
 						<div class='botaomenu'> 
-							<a href=''>
+							<a href='visualizartrabalho.php'>
 								Visualizar
 							</a>
 						</div>
@@ -48,35 +48,35 @@ echo "<center>
 						</div>
 					</li>
 						<div class='botaomenu'> 
-							<a href=''>
+							<a href='cadastraralunoturma.php'>
 								Cadastrar Aluno/Turma
 							</a>
 						</div>
 					<li>
 						<div class='botaomenu'> 
-							<a href=''>
+							<a href='cadastrarturmas.php'>
 								Cadastrar Turma
 							</a>
 						</div>
 					</li>					
 				</ul>
 			</li>
-			<li class='show-sub-menu'>
+			<li>
 				<div class='botaomenu'> 
 					<a href=''>
 						Disciplinas
 					</a>
 				</div>
-				<ul class='sub-menu'>
+				<ul>
 					<li>
-						<div class='botaomenu'> 
+						<div> 
 							<a href=''>
 								Programação
 							</a>
 						</div>					
 					</li>
 					<li>
-						<div class='botaomenu'> 
+						<div> 
 							<a href=''>
 								Compiladores
 							</a>
