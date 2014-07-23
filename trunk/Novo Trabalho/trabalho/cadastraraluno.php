@@ -1,5 +1,5 @@
 <?php
-//include "FuncoesdeBanco.php";
+include_once "FuncoesdeBanco.php";
 header("Content-type: text/html; charset=UTF-8");
 $class = new FuncoesdeBanco();
 if(!empty($_POST['nome']) && !empty($_POST['matricula']) && !empty($_POST['email']) ){	

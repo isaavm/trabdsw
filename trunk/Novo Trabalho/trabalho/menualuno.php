@@ -2,9 +2,10 @@
 include "FuncoesdeBanco.php";
 $classe = new FuncoesdeBanco();
 echo "<body>
+<script type='text/javascript'>Menu();</script>
 <center>
-	<div id='menu'>
-		<ul>
+	<div id='menumenu'>
+		<ul id='menu'>
 			<li>
 				<div class='botaomenu'> 
 					<a href=''>
@@ -14,14 +15,14 @@ echo "<body>
 				<ul>
 					<li>
 						<div class='botaomenu'> 
-							<a href=''>
+							<a href='visualizartrabalho.php'>
 								Visualizar
 							</a>
 						</div>
 					</li>
 					<li>
 						<div class='botaomenu'> 
-							<a href=''>
+							<a href='enviartrabalho.php'>
 								Enviar
 							</a>
 						</div>
@@ -51,7 +52,8 @@ echo "<body>
 					<a href=''>". $value ."</a>
 				</div></li>";
 		}
-			echo "</ul>
+			echo "
+			</ul>
 			</li>
 		</ul>
 	</div>
