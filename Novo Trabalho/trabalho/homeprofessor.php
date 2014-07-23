@@ -1,7 +1,7 @@
 <?php
 echo "<center>
-	<div id='homealuno'>
-		<h1> .:Página Inicial:.</h1>
+	<div id='planodefundocentral'>
+		<h1> .:Home:.</h1>
 		<table>
 			<tr>
 				<td>

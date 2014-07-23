@@ -1,17 +1,18 @@
-<center>
-	<div id="planodefundocentral">
-		<h1> .:Página Inicial:.</h1>
+<?php
+echo "<center>
+	<div id='planodefundocentral'>
+		<h1> .:Home:.</h1>
 		<table>
 			<tr>
 				<td>
-					<div id="AvisosAluno">
+					<div id='AvisosAluno'>
 						<center>
 							<h1>Avisos</h1>
 						</center>
 					</div>
 				</td>
 				<td>
-					<div id="SobreAluno">
+					<div id='SobreAluno'>
 						<center>
 							<h1>Sobre</h1>
 						</center>
@@ -23,7 +24,7 @@
 					
 				</td>
 				<td>
-					<div id="Links">
+					<div id='Links'>
 						<h1>Links</h1>
 					</div>	
 				</td>
@@ -31,4 +32,5 @@
 			</tr>			
 		</table>
 	</div>
-</center>
+</center>";
+?>

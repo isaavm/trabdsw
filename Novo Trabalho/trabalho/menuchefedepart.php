@@ -3,6 +3,7 @@ echo
 "<script type='text/javascript'>Menu();</script>
 <center>
 	<div id='menumenu'>
+	<div id='teste'>
 		<ul id='menu'>
 			<li>
 				<div class='botaomenu'> 
@@ -81,5 +82,6 @@ echo
 				</ul>
 			</li>
 		</ul>
+	</div>
 </div>";
 ?>

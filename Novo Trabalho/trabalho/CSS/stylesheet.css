@@ -163,6 +163,8 @@ ul, li {
 	width: 1100px;
 	overflow: hidden;
 	height: 100px;
+	margin-left: 12%;
+	margin-right: 20%;
 }
 #menu li {
 	float: left;
@@ -185,16 +187,31 @@ ul, li {
 	margin-left: 100px;
 	margin-top: -20px;
 }
-#menu li ul li ul li {
-}
 #menumenu{
+	width: 1100px;	
 	margin: 0 auto;
-	width: 1100px;
 	height: 100px;
 	border: 1px solid;
 }
 
 #menu ul{
-	margi
 	margin: 0 auto;
+	display: block;
+}
+
+#recados{
+	width: 40%;
+	height: 200px;
+	display: block;
+	border: 1px solid;
+	margin: 0 auto;
+}
+
+#recados p {
+	font-size: 30px;
+	font-style: oblique;
+}
+
+#teste{
+	border: 1px solid;
 }
