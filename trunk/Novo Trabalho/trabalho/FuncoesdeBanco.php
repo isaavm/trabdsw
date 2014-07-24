@@ -516,12 +516,13 @@ class FuncoesdeBanco {
 		if (mysqli_connect_errno()) {
 			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
 		} else {
-			$query = "SELECT nome FROM Trabalho WHERE codTurma like '$codTurma'";
+			$query = "SELECT titulo, codTrabalho FROM Trabalho WHERE codTurma = '$codTurma'";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$trabalhos[$cont++] = $resposta['nome'];
+				$trabalhos[$cont]['titulo'] = $resposta['titulo'];
+				$trabalhos[$cont++]['codigo'] = $resposta['codigo'];
 			}
 		}
 		mysqli_close($con);

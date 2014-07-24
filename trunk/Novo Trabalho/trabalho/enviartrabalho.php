@@ -15,13 +15,15 @@ $bd = new FuncoesdeBanco();
 
 if (isset($_POST['sendfile'])) {
 	if (!empty($_POST['disciplina']) && !empty($_POST['trabalho'])) {
+		$codTurma = $_POST['disciplina'];
+		$codTrabalho = $_POST['trabalho'];
 		$arquivo = $_FILES['newarq'];
 		$nomearq = $arquivo['name'];		//nomearquivo
 		$strarq = strrpos($nomearq, '.');
 		$ext = substr($arquivo['name'], $strarq);
 		$envia = 'uploads/' . md5(time()) . $ext;		//diretorioservidor
 		if (move_uploaded_file($arquivo['tmp_name'], $envia)) {
-			//$bd->gravarAnexo($nomearq,$envia);
+			$bd->gravarAnexo($nomearq,$envia);
 			echo "Trabalho enviado com sucesso!";
 		} else {
 			echo "Erro ao realizar o upload do anexo.";
@@ -60,20 +62,19 @@ echo "<center>
 		<form action='' method='post' name='formtrabalho' enctype='multipart/form-data'>
 			<p>
 				Disciplina:
-				<select name='disciplina' OnChange='CarregarTrabalhos();'>";
+				<select id='disciplina' name='disciplina' OnChange='CarregarTrabalhos();'>";
 foreach ($disciplinas as $value) {
 	$val = $value['disciplina'];
-	echo "<option id='$val'>$val</option>";
+	$ide = $value['turma'];//disciplina retorna codigo da turma
+	echo "<option id='$ide'>$val</option>";
 }
 echo "			</select>
 			</p>
 			<p>
 				Trabalho:
-				<select name='trabalho' />";
-foreach ($trabalhos as $value) {
-	echo "<option id='$value'>$value</option>";
-}
-echo "			</select>
+				<select id='trabalho' name='trabalho'/>	";		
+				//trabalho retorna codigo do trabalho via ajax
+			echo "</select>
 			</p>			
 			<p>
 				Observação:
@@ -85,5 +86,4 @@ echo "			</select>
 	</div>
 </center>";
 include_once "bottom.php";
-print_r($disciplinas);
 ?>
