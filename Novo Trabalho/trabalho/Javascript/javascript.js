@@ -53,12 +53,11 @@ function CarregarDadosdoTrabalho(){
 }
 
 function CarregarTrabalhos(){
-	// Testar isso daqui
-	disciplina = document.getElementById("turma").value;
+	idturma = $("#disciplina option:selected").attr("id")
 	$.ajax({ 
 	type: "POST", 
-	url: "retornaturmas.php", 
-	data: { turma: turma} , 
+	url: "retornatrabalhos.php", 
+	data: { idturma: idturma} , 
 	success: function(dados){  
 		$("#trabalho").html(dados);  
 		} 
