@@ -1,7 +1,7 @@
-<?php ob_start();
+<?php
 // Declaração que faz com que os caractecter do banco fiquem certos.
 //header("Content-type: text/html; charset=UTF-8");
-class FuncoesdeBanco{
+class FuncoesdeBanco {
 	private $Banco = array("servidor" => "mysql.jeiks.net", "usuario" => "g1dsw", "senha" => "ju76+klba", "banco" => "g1dsw");
 
 	function Logar($User, $Pass) {
@@ -92,13 +92,13 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $InfoUser;
 	}
-	
-	function GetIdAlunoByIdUsuario($idUsuario){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetIdAlunoByIdUsuario($idUsuario) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codAluno FROM Aluno WHERE codUsuario like '$idUsuario'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
@@ -109,19 +109,19 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	function GetTurmasByIdAluno($idAluno){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetTurmasByIdAluno($idAluno) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codTurma FROM AlunoTurma WHERE codAluno like '$idAluno'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$i = 0;
 				$vetor = array(mysqli_num_rows($resp));
-				while($resposta = mysqli_fetch_array($resp)){
+				while ($resposta = mysqli_fetch_array($resp)) {
 					$vetor[$i] = $resposta['codTurma'];
 					$i++;
 				}
@@ -131,176 +131,199 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	function GetDisciplinasByTurmas($Turmas){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetDisciplinasByTurmas($Turmas) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$vetor = array(sizeof($Turmas));
 			$cont = 0;
-			foreach ($Turmas as $value){
+			foreach ($Turmas as $value) {
 				$query = "SELECT nome FROM Disciplina WHERE codDisciplina like '$value' limit 1";
 				$resp = mysqli_query($con, $query);
 				if (mysqli_num_rows($resp) > 0) {
 					$resposta = mysqli_fetch_array($resp);
 					$vetor[$cont] = $resposta["nome"];
 					$cont++;
-				}	
+				}
 			}
 		}
 		$resposta = $vetor;
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	function GeraSenhaAluno($matricula){
+
+	function GeraSenhaAluno($matricula) {
 		// Fazer essa função ainda.
 		return $matricula;
 	}
-	
-	function CadastrarAluno($nome, $matricula, $email){
+
+	function CadastrarAluno($nome, $matricula, $email) {
 		// Falta corrigir essa função ainda.
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
-			$pass =	$this->GeraSenhaAluno($matricula);
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
+			$pass = $this -> GeraSenhaAluno($matricula);
 			$passcript = md5($pass);
 			$query = "INSERT INTO Usuario(username, password,nivelAcesso) VALUES ('$matricula','$passcript',3)";
 			$resp = mysqli_query($con, $query);
-			
+
 			$query = "SELECT codUsuario FROM Usuario WHERE username like '$matricula' limit 1";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
 				$codUsuario = $resposta['codUsuario'];
 			}
-			
+
 			$query = "INSERT INTO Aluno(nome, matricula, email, codUsuario) VALUES('$nome','$matricula','$email','$codUsuario')";
 			$resp = mysqli_query($con, $query);
 			/*if (mysqli_num_rows($resp) > 0) {
-				$resposta = mysqli_fetch_array($resp);
-				$resposta = "Feito com sucesso!";
-			}*/	
+			 $resposta = mysqli_fetch_array($resp);
+			 $resposta = "Feito com sucesso!";
+			 }*/
 		}
 
-	// Parte do código que envia o e-mail para a pessoa!
-	$headers = "MIME-Version: 1.1\r\n";
-	$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
-	$headers .= "From: angelo@g1dsw.com.br\r\n";
-	$headers .= "Return-Path: angelo@g1dsw.com\r\n"; 
-	$envio = mail("$email", "Teste E-mail PHP", "Teste de E-mail PHP! Sua senha é: $pass", $headers);
- 
-	if($envio){
- 		echo "Mensagem enviada com sucesso";
-	}
-	else{
- 		echo "A mensagem não pode ser enviada";
-	}	
+		// Parte do código que envia o e-mail para a pessoa!
+		$headers = "MIME-Version: 1.1\r\n";
+		$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$headers .= "From: angelo@g1dsw.com.br\r\n";
+		$headers .= "Return-Path: angelo@g1dsw.com\r\n";
+		$envio = mail("$email", "Teste E-mail PHP", "Teste de E-mail PHP! Sua senha é: $pass", $headers);
+
+		if ($envio) {
+			echo "Mensagem enviada com sucesso";
+		} else {
+			echo "A mensagem não pode ser enviada";
+		}
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	function CadastrarAlunoTurma($matricula, $turma){
+
+	function CadastrarAlunoTurma($matricula, $turma) {
 		// Terminar essa função
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codAluno FROM Aluno WHERE matricula like '$matricula' limit 1";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resp = mysqli_fetch_array($resp);
 				$codUsuario = $resp['codAluno'];
-			}	
-			
+			}
+
 			$query = "SELECT codUsuario FROM Turma WHERE username like '$matricula' limit 1";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
 				$codUsuario = $resposta['codUsuario'];
 			}
-			
+
 			$query = "INSERT INTO Aluno(nome, matricula, email, codUsuario) VALUES('$nome','$matricula','$email','$codUsuario')";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
 				$resposta = "Feito com sucesso!";
-			}	
+			}
 		}
-		
+
 		mysqli_close($con);
 		return $resposta;
 	}
 
-	function GetDisciplinas(){		
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]) or die(mysqli_error());
+	function GetDisciplinas() {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]) or die(mysqli_error());
 		$disciplinas = array();
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT nome FROM Disciplina";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){
+				while ($resposta = mysqli_fetch_array($resp)) {
 					$disciplinas[$cont] = $resposta['nome'];
-					$cont++;	
+					$cont++;
 				}
 			}
 		}
 		mysqli_close($con);
 		return $disciplinas;
 	}
-	
-	function GetTurmasByDisciplina($Disciplina){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetTurmasByDisciplina($Disciplina) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$disciplinas = array();
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codDisciplina FROM Disciplina WHERE nome like '$Disciplina' limit 1";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$codDisciplina = $resposta['codDisciplina'];		
-			}			
+				$codDisciplina = $resposta['codDisciplina'];
+			}
 			$query = "SELECT codTurma, Semestre FROM Turma WHERE codDisciplina like '$codDisciplina'";
 			$resp = mysqli_query($con, $query);
 			$periodos = array();
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){ 
-					$periodos[$cont++] = $resposta['Semestre'];	 
-				}		
+				while ($resposta = mysqli_fetch_array($resp)) {
+					$periodos[$cont++] = $resposta['Semestre'];
+				}
 			}
-		} 
+		}
 		mysqli_close($con);
 		return $periodos;
 	}
 
-	function CadastrarDisciplina(){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+	function CadastrarDisciplina() {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$disciplinas = array();
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "INSERT INTO codDisciplina FROM Disciplina WHERE nome like '$Disciplina' limit 1";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resp = mysqli_fetch_array($resp);
-				$codDisciplina = $resp['codDisciplina'];		
+				$codDisciplina = $resp['codDisciplina'];
 			}
 		}
 		mysqli_close($con);
 		return $resposta;
 	}
 
-	function gravarAnexo($nome,$dir,$codTrabalho){
+	function enviarTrabalho($nomearq, $diretorio, $codTrabalho, $codTurma, $codAluno, $observacao) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+		$resposta = false;
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
+			$query = "INSERT INTO AnexoTrabalho(caminho,nome,trabalho) VALUES ('$diretorio','$nomearq','$codTrabalho')";
+			if (mysqli_query($con, $query)) {
+				echo "gravou o anexo";
+				$data = date('d/m/Y');
+				$hora = date('H:i:s');
+				echo "$data $hora $codTrabalho $codTurma $codAluno $observacao";
+				$query = "INSERT INTO TrabalhoAluno(codTrabalho,codAluno,Situacao,dataEnvio,horaEnvio,Observacao) VALUES ('$codTrabalho','$codAluno',1,'$data','$hora','$observacao')";
+				echo "$query";
+				if (mysqli_query($con, $query)) {
+					echo "gravou o trabalho";
+					$resposta = TRUE;
+				}
+			}
+		}
+		mysqli_close($con);
+		return $resposta;
+	}
+
+	function gravarAnexo($nome, $dir, $codTrabalho) {
 		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta = false;
 		if (mysqli_connect_errno()) {
@@ -315,41 +338,41 @@ class FuncoesdeBanco{
 		return $resposta;
 	}
 
-	function CadastrarProfessor($nome, $matricula, $depart, $email){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+	function CadastrarProfessor($nome, $matricula, $depart, $email) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$resposta = false;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codDepartamento FROM Departamento WHERE nome like '$depart'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resp = mysqli_fetch_array($resp);
-				$codDepartamento = $resp['codDepartamento'];		
+				$codDepartamento = $resp['codDepartamento'];
 			}
-			
+
 			$query = "INSERT INTO Professor() VALUES ('$nome','$matricula',$codDepartamento,'$email')";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
-				$resp = mysqli_fetch_array($resp);		
+				$resp = mysqli_fetch_array($resp);
 				$resposta = true;
 			}
 		}
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	function GetDepartamentos(){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetDepartamentos() {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT nome FROM Departamento";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			$departamentos = array();
 			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){
+				while ($resposta = mysqli_fetch_array($resp)) {
 					$departamentos[$cont++] = $resposta['nome'];
 				}
 			}
@@ -357,76 +380,80 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $departamentos;
 	}
-	
-	function CriarTrabalho($titulo, $observacao, $dataEnvio, $turma){
+
+	function CriarTrabalho($titulo, $observacao, $dataEnvio, $turma) {
 		// Em desenvolvimento
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codTurma FROM Turma WHERE ";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$departamentos = $resposta['nome'];		
-			}			
-			
+				$departamentos = $resposta['nome'];
+			}
+
 			$query = "INSERT INTO Trabalho(titulo, observacao, dataEnvio, codTurma) VALUES('$titulo','$observacao','$dataEnvio','$codTurma')";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$departamentos = $resposta['nome'];		
+				$departamentos = $resposta['nome'];
 			}
 		}
 		mysqli_close($con);
 		return $departamentos;
 	}
-	
-	function EnviarTrabalho($titulo, $disciplina, $turma, $data,$observacao){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function getCodNomeTrabalhosByTurma($turma) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
-			$query = "INSERT INTO TrabalhoAluno(titulo, observacao, dataEnvio, codTurma) VALUES('$titulo','$observacao','$dataEnvio','$codTurma')";
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
+			$cont = 0;
+			$query = "SELECT codTrabalho, titulo FROM Trabalho WHERE codTurma = '$turma'";
 			$resp = mysqli_query($con, $query);
+			$trabalhos = array();
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$departamentos = $resposta['nome'];		
-			}
-		}
-		mysqli_close($con);
-		return $resposta;
-	}
-	
-	function GetTrabalhoByTurma($turma){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
-		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{
-			$cont = 0;			
-			$query = "SELECT titulo FROM Trabalho WHERE codTurma like '$turma'";
-			$resp = mysqli_query($con, $query);
-			if (mysqli_num_rows($resp) > 0) {
-				$resposta = mysqli_fetch_array($resp);
-				$trabalhos[$cont++] = $resposta['titulo'];		
+				$trabalhos[$cont]['id'] = $resposta[0];
+				$trabalhos[$cont]['titulo'] = $resposta[1];
+				$cont++;
 			}
 		}
 		mysqli_close($con);
 		return $trabalhos;
 	}
-	
-	function GetCodTurmaByDisciplina($disciplina, $turma){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetTrabalhoByTurma($turma) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
+			$cont = 0;
+			$query = "SELECT titulo FROM Trabalho WHERE codTurma like '$turma'";
+			$resp = mysqli_query($con, $query);
+			if (mysqli_num_rows($resp) > 0) {
+				$resposta = mysqli_fetch_array($resp);
+				$trabalhos[$cont++] = $resposta['titulo'];
+			}
+		}
+		mysqli_close($con);
+		return $trabalhos;
+	}
+
+	function GetCodTurmaByDisciplina($disciplina, $turma) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codDisciplina FROM Disciplina WHERE nome like '$disciplina'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$codDisciplina = $resposta['codDisciplina'];		
+				$codDisciplina = $resposta['codDisciplina'];
 			}
-			
+
 			$query = "SELECT codTurma, Semestre FROM Turma WHERE codDisciplina like '$codDisciplina'";
 			$resp = mysqli_query($con, $query);
 			$turmas = array();
@@ -438,8 +465,8 @@ class FuncoesdeBanco{
 				$cont++;
 			}
 			//echo "<option id='ddd'> $cont". sizeof($turmas)." - ".sizeof($turmas['codigo'])."</option>";
-			for ($i=0; $i < sizeof($turmas['codigo']); $i++) { 
-				if($turmas['semestre'][$i] == $turma){
+			for ($i = 0; $i < sizeof($turmas['codigo']); $i++) {
+				if ($turmas['semestre'][$i] == $turma) {
 					$codTurma = $turmas['codigo'][$i];
 				}
 			}
@@ -456,75 +483,74 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $trabalhos;
 	}
-	
-	function GetDisciplinasByProfessor($professor){
+
+	function GetDisciplinasByProfessor($professor) {
 		// Para o isaac implementar
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codProfessor FROM Professor WHERE nome like '$professor'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$codProfessor = $resposta['codProfessor'];		
+				$codProfessor = $resposta['codProfessor'];
 			}
 			$turmas = array();
 			$cont = 0;
 			$query = "SELECT codTurma FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){
-					$turmas[$cont++] = $resposta['codTurma'];	
-				}	
+				while ($resposta = mysqli_fetch_array($resp)) {
+					$turmas[$cont++] = $resposta['codTurma'];
+				}
 			}
-			
+
 			$query = "SELECT codDisciplina FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
 			$resp = mysqli_query($con, $query);
 			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){
-					$turmas[$cont++] = $resposta['codTurma'];	
-				}	
-			}			
+				while ($resposta = mysqli_fetch_array($resp)) {
+					$turmas[$cont++] = $resposta['codTurma'];
+				}
+			}
 		}
 		mysqli_close($con);
 		return $resposta;
 	}
-	
-	
+
 	/*function GetDisciplinasByProfessor($professor){
-		// Para o isaac implementar
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
-		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
-			$query = "SELECT codProfessor FROM Professor WHERE nome like '$professor'";
-			$resp = mysqli_query($con, $query);
-			if (mysqli_num_rows($resp) > 0) {
-				$resposta = mysqli_fetch_array($resp);
-				$codProfessor = $resposta['codProfessor'];		
-			}
-			$turmas = array();
-			$cont = 0;
-			$query = "SELECT codTurma FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
-			$resp = mysqli_query($con, $query);
-			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){
-					$turmas[$cont++] = $resposta['codTurma'];	
-				}	
-			}
-			
-			$query = "SELECT codDisciplina FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
-			$resp = mysqli_query($con, $query);
-			if (mysqli_num_rows($resp) > 0) {
-				while($resposta = mysqli_fetch_array($resp)){
-					$turmas[$cont++] = $resposta['codTurma'];	
-				}	
-			}			
-		}
-		mysqli_close($con);
-		return $resposta;
-	}*/
+	 // Para o isaac implementar
+	 $con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+	 if (mysqli_connect_errno()) {
+	 echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+	 }else{
+	 $query = "SELECT codProfessor FROM Professor WHERE nome like '$professor'";
+	 $resp = mysqli_query($con, $query);
+	 if (mysqli_num_rows($resp) > 0) {
+	 $resposta = mysqli_fetch_array($resp);
+	 $codProfessor = $resposta['codProfessor'];
+	 }
+	 $turmas = array();
+	 $cont = 0;
+	 $query = "SELECT codTurma FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
+	 $resp = mysqli_query($con, $query);
+	 if (mysqli_num_rows($resp) > 0) {
+	 while($resposta = mysqli_fetch_array($resp)){
+	 $turmas[$cont++] = $resposta['codTurma'];
+	 }
+	 }
+
+	 $query = "SELECT codDisciplina FROM ProfessorTurma WHERE codProfessor like '$codProfessor'";
+	 $resp = mysqli_query($con, $query);
+	 if (mysqli_num_rows($resp) > 0) {
+	 while($resposta = mysqli_fetch_array($resp)){
+	 $turmas[$cont++] = $resposta['codTurma'];
+	 }
+	 }
+	 }
+	 mysqli_close($con);
+	 return $resposta;
+	 }*/
 
 	function GetDisciplinasByAluno($codAluno, $semestre) {
 		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
@@ -547,69 +573,69 @@ class FuncoesdeBanco{
 			return $vetor;
 		}
 	}
-	
-	function GetTrabalhosByCodTurma($codTurma){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetTrabalhosByCodTurma($codTurma) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$trabalhos = array();
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT nome FROM Trabalho WHERE codTurma like '$codTurma'";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$trabalhos[$cont++] = $resposta['nome'];		
-			}			
+				$trabalhos[$cont++] = $resposta['nome'];
+			}
 		}
 		mysqli_close($con);
-		return $trabalhos;	
+		return $trabalhos;
 	}
-	
-	function GetTrabalhoByNome($codTurma, $titulo){
-		// Para o Isaac implementar		
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetTrabalhoByNome($codTurma, $titulo) {
+		// Para o Isaac implementar
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$trabalho;
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT * FROM Trabalho WHERE codTurma like '$codTurma' and nome like '$titulo'";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$trabalho = $resposta;		
-			}			
+				$trabalho = $resposta;
+			}
 		}
 		mysqli_close($con);
 		return $trabalho;
 	}
-	
-	function GetAlunosByDisciplinaTurma($disciplina,$turma){
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+
+	function GetAlunosByDisciplinaTurma($disciplina, $turma) {
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		$trabalho = array();
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
-		}else{			
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
 			$query = "SELECT codDisciplina FROM Disciplina WHERE nome like '$disciplina' limit 1";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$trabalho = $resposta['codDisciplina'];		
+				$trabalho = $resposta['codDisciplina'];
 			}
-			
+
 			$query = "SELECT codDisciplina FROM Disciplina WHERE nome like '$disciplina' limit 1";
 			$resp = mysqli_query($con, $query);
 			$cont = 0;
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
-				$trabalho = $resposta['codDisciplina'];		
-			}						
+				$trabalho = $resposta['codDisciplina'];
+			}
 		}
 		mysqli_close($con);
 		return $trabalho;
 	}
-	
+
 }
 ?>

@@ -3,8 +3,9 @@ if (!empty($_SESSION)) {
 	session_start();
 }
 
-if(!file_exists('uploads/')){
-	mkdir('uploads/');//ver protocolo de aceitação - modo
+if (!file_exists('uploads/')) {
+	mkdir('uploads/');
+	//ver protocolo de aceitação - modo
 }
 
 include_once "default.php";
@@ -12,21 +13,27 @@ include_once "header.php";
 include_once "menualuno.php";
 include_once "FuncoesdeBanco.php";
 $bd = new FuncoesdeBanco();
-
+$codAluno = $_SESSION['user']['codigo'];
 if (isset($_POST['sendfile'])) {
 	if (!empty($_POST['disciplina']) && !empty($_POST['trabalho'])) {
-		print_r($_POST);//parei aqui
-		exit();
+		if (empty($_POST['observacao'])) {
+			$_POST['observacao'] = '';
+		}
 		$codTurma = $_POST['disciplina'];
 		$codTrabalho = $_POST['trabalho'];
 		$arquivo = $_FILES['newarq'];
-		$nomearq = $arquivo['name'];		//nomearquivo
+		$nomearq = $arquivo['name'];
+		//nomearquivo
 		$strarq = strrpos($nomearq, '.');
 		$ext = substr($arquivo['name'], $strarq);
-		$diretorio = 'uploads/' . md5(time()) . $ext;		//diretorioservidor
+		$diretorio = 'uploads/' . md5(time()) . $ext;
+		//diretorioservidor
 		if (move_uploaded_file($arquivo['tmp_name'], $diretorio)) {
-			$bd->gravarAnexo($nomearq,$diretorio,$codTrabalho);
-			echo "Trabalho enviado com sucesso!";
+			if ($bd -> enviarTrabalho($nomearq, $diretorio, $codTrabalho, $codTurma, $codAluno,$_POST['observacao'])) {
+				echo "Trabalho enviado com sucesso!";
+			} else {
+				echo "Erro ao gravar trabalho no banco de dados!";
+			}
 		} else {
 			echo "Erro ao realizar o upload do anexo.";
 		}
@@ -35,7 +42,7 @@ if (isset($_POST['sendfile'])) {
 	}
 }
 
-if (!empty($_POST['titulo']) && !empty($_POST['disciplina']) && !empty($_POST['turma']) && !empty($_POST['data'])) {
+if (!empty($_POST['titulo']) && !empty($_POST['turma'])) {
 	if (empty($_POST['observacao'])) {
 		$_POST['observacao'] = '';
 	}
@@ -57,26 +64,30 @@ if (date("m" > 7)) {
 } else {
 	$semestre = date("Y") . '/1';
 }
-$disciplinas = $bd->GetDisciplinasByAluno($codAluno,$semestre);
+
+$disciplinas = $bd -> GetDisciplinasByAluno($codAluno, $semestre);
+
 echo "<center>
 	<div id='planodefundocentral'>
 		<h1>.:Enviar trabalho:.</h1>
 		<form action='' method='post' name='formtrabalho' enctype='multipart/form-data'>
 			<p>
 				Disciplina:
-				<select id='disciplina' name='disciplina' OnChange='CarregarTrabalhos();'>";
+				<select id='disciplina' name='disciplina' OnChange='CarregarTrabalhos();'> 
+				<option id='vazio'></option>";
 foreach ($disciplinas as $value) {
 	$val = $value['disciplina'];
-	$ide = $value['turma'];//disciplina retorna codigo da turma
+	$ide = $value['turma'];
+	//disciplina retorna codigo da turma
 	echo "<option id='$ide'>$val</option>";
 }
 echo "			</select>
 			</p>
 			<p>
 				Trabalho:
-				<select id='trabalho' name='trabalho'/>	";		
-				//trabalho retorna codigo do trabalho via ajax
-			echo "</select>
+				<select id='trabalho' name='trabalho'>		
+				
+			</select>
 			</p>			
 			<p>
 				Observação:

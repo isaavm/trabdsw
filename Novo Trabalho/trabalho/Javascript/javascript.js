@@ -53,8 +53,8 @@ function CarregarDadosdoTrabalho(){
 }
 
 function CarregarTrabalhos(){
-	idturma = $("#disciplina option:selected").attr("id")
-	$.ajax({ 
+	idturma = $("#disciplina option:selected").attr("id");
+	$.ajax({
 	type: "POST", 
 	url: "retornatrabalhos.php", 
 	data: { idturma: idturma} , 
