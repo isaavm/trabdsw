@@ -6,9 +6,9 @@ class FuncoesdeBanco{
 
 	function Logar($User, $Pass) {
 		$InfoUser = array("nome" => "", "classe" => "", "codigo" => -1);
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
-			echo "Falha de conexao com o mysql: ".mysqli_connect_error();
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
 		} else {
 			$senha = md5($Pass);
 			$query = "SELECT CodUsuario, NivelAcesso FROM Usuario WHERE Username like '$User' and Password like '$senha' limit 1";
@@ -16,29 +16,33 @@ class FuncoesdeBanco{
 			if (mysqli_num_rows($resp) > 0) {
 				$resposta = mysqli_fetch_array($resp);
 				$InfoUser["classe"] = $resposta["NivelAcesso"];
-				$InfoUser["codigo"] = $resposta["CodUsuario"];
+				$InfoUser["usuario"] = $resposta["CodUsuario"];
 				echo $resposta["NivelAcesso"];
 				echo $resposta["CodUsuario"];
 				if ($InfoUser["classe"] == 0) {//administrador
-					$query = "SELECT Nome FROM Administrador WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codAdministrador FROM Administrador WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				} elseif ($InfoUser["classe"] == 1) {//chefe departamento
-					$query = "SELECT Nome FROM ChefeDepartamento WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codChefeDepartamento FROM ChefeDepartamento WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				} elseif ($InfoUser["classe"] == 2) {// professor
-					$query = "SELECT Nome FROM Professor WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codProfessor FROM Professor WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				} elseif ($InfoUser["classe"] == 3) {// aluno
-					$query = "SELECT Nome FROM Aluno WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codAluno FROM Aluno WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				}
 			}
 		}
@@ -48,7 +52,7 @@ class FuncoesdeBanco{
 
 	function getById($cod) {
 		$InfoUser = array('nome' => "", 'classe' => "", 'codigo' => "-1");
-		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
 		if (mysqli_connect_errno()) {
 			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
 		} else {
@@ -57,27 +61,31 @@ class FuncoesdeBanco{
 			if (mysqli_num_rows($resposta) > 0) {
 				$resposta = mysqli_fetch_array($resp);
 				$InfoUser["classe"] = $resposta["NivelAcesso"];
-				$InfoUser["codigo"] = $cod;
+				$InfoUser["usuario"] = $cod;
 				if ($InfoUser["classe"] == 0) {//administrador
-					$query = "SELECT Nome FROM Administrador WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codAdministrador FROM Administrador WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				} elseif ($InfoUser["classe"] == 1) {//chefe departamento
-					$query = "SELECT Nome FROM ChefeDepartamento WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codChefeDepartamento FROM ChefeDepartamento WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				} elseif ($InfoUser["classe"] == 2) {// professor
-					$query = "SELECT Nome FROM Professor WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codProfessor FROM Professor WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				} elseif ($InfoUser["classe"] == 3) {// aluno
-					$query = "SELECT Nome FROM Aluno WHERE CodUsuario = '$resposta[0]'";
+					$query = "SELECT Nome, codAluno FROM Aluno WHERE CodUsuario = '$resposta[0]'";
 					$resp = mysqli_query($con, $query);
 					$resposta = mysqli_fetch_array($resp);
 					$InfoUser["nome"] = $resposta[0];
+					$InfoUser["codigo"] = $resposta[1];
 				}
 			}
 		}
@@ -291,7 +299,22 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $resposta;
 	}
-	
+
+	function gravarAnexo($nome,$dir,$codTrabalho){
+		$con = mysqli_connect($this -> Banco["servidor"], $this -> Banco["usuario"], $this -> Banco["senha"], $this -> Banco["banco"]);
+		$resposta = false;
+		if (mysqli_connect_errno()) {
+			echo "Falha de conexao com o mysql: " . mysqli_connect_error();
+		} else {
+			$query = "INSERT INTO AnexoTrabalho(caminho,nome,trabalho) VALUES ('$dir','$nome','$codTrabalho')";
+			if (mysqli_query($con, $query)) {
+				$resposta = true;
+			}
+		}
+		mysqli_close($con);
+		return $resposta;
+	}
+
 	function CadastrarProfessor($nome, $matricula, $depart, $email){
 		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
 		$resposta = false;
@@ -358,7 +381,6 @@ class FuncoesdeBanco{
 		mysqli_close($con);
 		return $departamentos;
 	}
-	
 	
 	function EnviarTrabalho($titulo, $disciplina, $turma, $data,$observacao){
 		$con = mysqli_connect( $this->Banco["servidor"], $this->Banco["usuario"], $this->Banco["senha"], $this->Banco["banco"]);
