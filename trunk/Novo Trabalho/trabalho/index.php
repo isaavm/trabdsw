@@ -1,6 +1,5 @@
-<?php
+<?php ob_start();
 include "default.php";
-ob_start();
 session_start();
 
 $flag = TRUE;
